@@ -195,6 +195,32 @@ export function computeOverSummaries(balls: Ball[], meta: MatchMeta): OverSummar
 }
 
 /**
+ * Everything the proof drawer needs to show for one ball: the ball itself,
+ * the team score immediately after it, and the win-probability swing it
+ * caused. Used by the Catch Me Up proof chips — every ref a fan taps opens
+ * exactly this, computed from the engine, never from AI output.
+ */
+export interface BallProof {
+  ball: Ball;
+  scoreAfter: { runs: number; wickets: number };
+  winProbBefore: number;
+  winProbAfter: number;
+}
+
+export function getBallProof(allBalls: Ball[], meta: MatchMeta, ballNumber: number): BallProof | null {
+  const index = allBalls.findIndex((b) => b.n === ballNumber);
+  if (index === -1) return null;
+  const before = computeMatchState(allBalls.slice(0, index), meta);
+  const after = computeMatchState(allBalls.slice(0, index + 1), meta);
+  return {
+    ball: allBalls[index],
+    scoreAfter: { runs: after.runs, wickets: after.wickets },
+    winProbBefore: before.winProb,
+    winProbAfter: after.winProb,
+  };
+}
+
+/**
  * Detects high-impact key moments by replaying the innings ball by ball and
  * comparing win probability before/after each delivery. Matches F8's rule:
  * wickets, boundaries that swing win probability by >= 5 points, powerplay

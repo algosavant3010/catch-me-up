@@ -7,6 +7,7 @@ import { Scoreboard } from "@/components/scoreboard/Scoreboard";
 import { WinProbChart } from "@/components/scoreboard/WinProbChart";
 import { TensionMeter } from "@/components/scoreboard/TensionMeter";
 import { SpeedControls } from "@/components/scoreboard/SpeedControls";
+import { ActionBar } from "@/components/match/ActionBar";
 
 export function MatchExperience({ meta, startAtBall }: { meta: MatchMeta; startAtBall: number }) {
   return (
@@ -29,6 +30,7 @@ function MatchLayout() {
       <WinProbChart />
       <TensionMeter />
       <SpeedControls />
+      <ActionBar />
     </div>
   );
 }
