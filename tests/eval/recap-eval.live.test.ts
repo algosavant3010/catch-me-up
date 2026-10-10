@@ -25,11 +25,25 @@ describe.skipIf(!live)("eval harness (LIVE Gemini, EVAL_LIVE=1 only)", () => {
   it(
     "runs every golden window against the real model and writes docs/EVAL.md",
     async () => {
-      const results: { label: string; category: string; source: string; verified: number; total: number; latencyMs: number }[] = [];
+      const results: {
+        label: string;
+        category: string;
+        source: string;
+        verified: number;
+        total: number;
+        latencyMs: number;
+      }[] = [];
 
       for (const window of GOLDEN_SET) {
         const start = Date.now();
-        const result = await getRecap({ allBalls, meta, from: window.from, to: window.to, locale: "en", mode: "beginner" });
+        const result = await getRecap({
+          allBalls,
+          meta,
+          from: window.from,
+          to: window.to,
+          locale: "en",
+          mode: "beginner",
+        });
         results.push({
           label: window.label,
           category: window.category,
@@ -45,12 +59,21 @@ describe.skipIf(!live)("eval harness (LIVE Gemini, EVAL_LIVE=1 only)", () => {
       const scriptLocales = LOCALES.filter((l) => l.code !== "en" && l.code !== "hinglish");
       const scriptResults: { locale: string; source: string }[] = [];
       for (const locale of scriptLocales) {
-        const result = await getRecap({ allBalls, meta, from: 1, to: 37, locale: locale.code, mode: "beginner" });
+        const result = await getRecap({
+          allBalls,
+          meta,
+          from: 1,
+          to: 37,
+          locale: locale.code,
+          mode: "beginner",
+        });
         scriptResults.push({ locale: locale.code, source: result.source });
         await sleep(4500);
       }
 
-      const schemaValidCount = results.filter((r) => r.source === "ai" || r.source === "fallback").length;
+      const schemaValidCount = results.filter(
+        (r) => r.source === "ai" || r.source === "fallback",
+      ).length;
       const aiCount = results.filter((r) => r.source === "ai").length;
       const fallbackCount = results.length - aiCount;
       const totalRefs = results.reduce((s, r) => s + r.total, 0);

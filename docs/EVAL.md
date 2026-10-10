@@ -6,66 +6,66 @@ on 2026-10-10T17:41:10.140Z.
 
 ## Headline numbers (33 golden windows)
 
-| Metric | Value |
-|---|---|
-| Schema-valid rate | 100% (33/33) |
-| First-pass/retry AI success rate | 18% (6/33) |
-| Fallback rate | 82% (27/33) |
-| Citation validity rate | 100% (23/23) |
+| Metric                                  | Value                                            |
+| --------------------------------------- | ------------------------------------------------ |
+| Schema-valid rate                       | 100% (33/33)                                     |
+| First-pass/retry AI success rate        | 18% (6/33)                                       |
+| Fallback rate                           | 82% (27/33)                                      |
+| Citation validity rate                  | 100% (23/23)                                     |
 | Unverified refs that reached the result | 0 (enforced by `verifyRecap` + retry + fallback) |
-| Latency p50 | 388ms |
-| Latency p95 | 4464ms |
+| Latency p50                             | 388ms                                            |
+| Latency p95                             | 4464ms                                           |
 
 ## Per-window results
 
-| Window | Category | Source | Refs verified |
-|---|---|---|---|
-| first ball | early | ai | 3/3 |
-| first over | early | ai | 3/3 |
-| overs 1-3 | early | ai | 6/6 |
-| powerplay so far (overs 1-4) | early | ai | 3/3 |
-| end of powerplay | early | ai | 4/4 |
-| overs 7-9 | middle | ai | 4/4 |
-| halfway point | middle | fallback | 0/0 |
-| overs 10-12 only | middle | fallback | 0/0 |
-| overs 13-15 | middle | fallback | 0/0 |
-| middle overs since powerplay | middle | fallback | 0/0 |
-| final over only | last_over | fallback | 0/0 |
-| last 2 overs | last_over | fallback | 0/0 |
-| last 3 overs | last_over | fallback | 0/0 |
-| final ball | last_over | fallback | 0/0 |
-| penultimate over | last_over | fallback | 0/0 |
-| around wicket #1 (b9) | wicket_cluster | fallback | 0/0 |
-| around wicket #2 (b31) | wicket_cluster | fallback | 0/0 |
-| around wicket #3 (b45) | wicket_cluster | fallback | 0/0 |
-| around wicket #4 (b62) | wicket_cluster | fallback | 0/0 |
-| around wicket #5 (b70) | wicket_cluster | fallback | 0/0 |
-| around wicket #6 (b84) | wicket_cluster | fallback | 0/0 |
-| around wicket #7 (b97) | wicket_cluster | fallback | 0/0 |
-| around wicket #8 (b107) | wicket_cluster | fallback | 0/0 |
-| around wicket #9 (b118) | wicket_cluster | fallback | 0/0 |
-| long gap: overs 2-10 | long_gap | fallback | 0/0 |
-| long gap: overs 5-18 | long_gap | fallback | 0/0 |
-| long gap: entire match | long_gap | fallback | 0/0 |
-| long gap: overs 8-16 | long_gap | fallback | 0/0 |
-| one ball: b13 | one_ball | fallback | 0/0 |
-| one ball: b50 | one_ball | fallback | 0/0 |
-| one ball: b70 | one_ball | fallback | 0/0 |
-| one ball: b100 | one_ball | fallback | 0/0 |
-| one ball: b115 | one_ball | fallback | 0/0 |
+| Window                       | Category       | Source   | Refs verified |
+| ---------------------------- | -------------- | -------- | ------------- |
+| first ball                   | early          | ai       | 3/3           |
+| first over                   | early          | ai       | 3/3           |
+| overs 1-3                    | early          | ai       | 6/6           |
+| powerplay so far (overs 1-4) | early          | ai       | 3/3           |
+| end of powerplay             | early          | ai       | 4/4           |
+| overs 7-9                    | middle         | ai       | 4/4           |
+| halfway point                | middle         | fallback | 0/0           |
+| overs 10-12 only             | middle         | fallback | 0/0           |
+| overs 13-15                  | middle         | fallback | 0/0           |
+| middle overs since powerplay | middle         | fallback | 0/0           |
+| final over only              | last_over      | fallback | 0/0           |
+| last 2 overs                 | last_over      | fallback | 0/0           |
+| last 3 overs                 | last_over      | fallback | 0/0           |
+| final ball                   | last_over      | fallback | 0/0           |
+| penultimate over             | last_over      | fallback | 0/0           |
+| around wicket #1 (b9)        | wicket_cluster | fallback | 0/0           |
+| around wicket #2 (b31)       | wicket_cluster | fallback | 0/0           |
+| around wicket #3 (b45)       | wicket_cluster | fallback | 0/0           |
+| around wicket #4 (b62)       | wicket_cluster | fallback | 0/0           |
+| around wicket #5 (b70)       | wicket_cluster | fallback | 0/0           |
+| around wicket #6 (b84)       | wicket_cluster | fallback | 0/0           |
+| around wicket #7 (b97)       | wicket_cluster | fallback | 0/0           |
+| around wicket #8 (b107)      | wicket_cluster | fallback | 0/0           |
+| around wicket #9 (b118)      | wicket_cluster | fallback | 0/0           |
+| long gap: overs 2-10         | long_gap       | fallback | 0/0           |
+| long gap: overs 5-18         | long_gap       | fallback | 0/0           |
+| long gap: entire match       | long_gap       | fallback | 0/0           |
+| long gap: overs 8-16         | long_gap       | fallback | 0/0           |
+| one ball: b13                | one_ball       | fallback | 0/0           |
+| one ball: b50                | one_ball       | fallback | 0/0           |
+| one ball: b70                | one_ball       | fallback | 0/0           |
+| one ball: b100               | one_ball       | fallback | 0/0           |
+| one ball: b115               | one_ball       | fallback | 0/0           |
 
 ## Language-script spot check (1 window, 8 non-English UI languages)
 
-| Locale | Source |
-|---|---|
-| hi | fallback |
-| ta | fallback |
-| te | fallback |
-| mr | fallback |
-| bn | fallback |
-| kn | fallback |
-| gu | fallback |
-| pa | fallback |
+| Locale | Source   |
+| ------ | -------- |
+| hi     | fallback |
+| ta     | fallback |
+| te     | fallback |
+| mr     | fallback |
+| bn     | fallback |
+| kn     | fallback |
+| gu     | fallback |
+| pa     | fallback |
 
 All of the above reached the UI with zero unverified references — every AI
 line that failed verification was either retried once (with the specific

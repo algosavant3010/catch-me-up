@@ -45,7 +45,8 @@ describe("eval harness (mocked Gemini, runs in CI)", () => {
 
     for (const window of GOLDEN_SET) {
       const factSheet = buildFactSheet(allBalls, meta, window.from, window.to);
-      const firstRef = allBalls.find((b) => b.n >= window.from && b.n <= window.to)?.n ?? window.from;
+      const firstRef =
+        allBalls.find((b) => b.n >= window.from && b.n <= window.to)?.n ?? window.from;
 
       mockGenerate.mockResolvedValueOnce({
         ok: true,
@@ -53,11 +54,24 @@ describe("eval harness (mocked Gemini, runs in CI)", () => {
         totalTokens: 100,
         data: {
           headline: `${meta.battingTeam.name} update`.slice(0, 90),
-          lines: [{ kind: "where_it_stands", text: `Score update based on the fact sheet.`, refs: [firstRef] }],
+          lines: [
+            {
+              kind: "where_it_stands",
+              text: `Score update based on the fact sheet.`,
+              refs: [firstRef],
+            },
+          ],
         },
       });
 
-      const result = await getRecap({ allBalls, meta, from: window.from, to: window.to, locale: "en", mode: "beginner" });
+      const result = await getRecap({
+        allBalls,
+        meta,
+        from: window.from,
+        to: window.to,
+        locale: "en",
+        mode: "beginner",
+      });
       expect(["ai", "fallback"]).toContain(result.source);
       if (result.source === "ai") aiCount += 1;
       else fallbackCount += 1;
@@ -79,16 +93,38 @@ describe("eval harness (mocked Gemini, runs in CI)", () => {
       ok: true,
       latencyMs: 5,
       totalTokens: 50,
-      data: { headline: "x", lines: [{ kind: "where_it_stands", text: "They scored 777777 runs.", refs: [] }] },
+      data: {
+        headline: "x",
+        lines: [{ kind: "where_it_stands", text: "They scored 777777 runs.", refs: [] }],
+      },
     });
-    const result = await getRecap({ allBalls, meta, from: window.from, to: window.to, locale: "en", mode: "beginner" });
+    const result = await getRecap({
+      allBalls,
+      meta,
+      from: window.from,
+      to: window.to,
+      locale: "en",
+      mode: "beginner",
+    });
     expect(result.source).toBe("fallback");
   });
 
   it("a malformed (non-JSON-parseable) model response is rejected and replaced by the fallback", async () => {
     const window = GOLDEN_SET[1];
-    mockGenerate.mockResolvedValueOnce({ ok: false, kind: "invalid_response", message: "bad json", latencyMs: 5 });
-    const result = await getRecap({ allBalls, meta, from: window.from, to: window.to, locale: "en", mode: "beginner" });
+    mockGenerate.mockResolvedValueOnce({
+      ok: false,
+      kind: "invalid_response",
+      message: "bad json",
+      latencyMs: 5,
+    });
+    const result = await getRecap({
+      allBalls,
+      meta,
+      from: window.from,
+      to: window.to,
+      locale: "en",
+      mode: "beginner",
+    });
     expect(result.source).toBe("fallback");
   });
 });

@@ -102,3 +102,42 @@ and across our own tests/screenshots.
 Documented in full, with formula and limits, in `docs/ARCHITECTURE.md`
 § "Win probability model" (kept there rather than duplicated here since it
 needs the match-state vocabulary defined in that doc).
+
+## 10. "Streamed" recap means streamed-after-verification, not token streaming
+
+The brief asks for a streamed recap, and separately requires that zero
+unverified output ever reaches the UI. Raw token streaming from Gemini would
+let partially-generated, unverified text reach the client before the
+verifier has run on the complete response — a direct conflict. We resolve
+it by doing the full generate → verify → retry-once → fallback cycle
+server-side first, then streaming the already-verified result to the client
+as newline-delimited JSON chunks (`app/api/recap/route.ts`), one per recap
+line. The client still perceives progressive reveal (headline, then trust
+badge, then each line), but nothing unverified is ever in flight.
+
+## 11. Share cards are never built from free-text query params
+
+`app/api/og/route.tsx` accepts only a validated ball number, never a
+freeform title/subtitle string. All display text is derived server-side
+from the match engine for that ball. This was chosen over HMAC-signing
+arbitrary text because it removes the injection surface entirely rather
+than just authenticating it — there is no text to inject if the only input
+is a validated integer.
+
+## 12. Room storage is read-modify-write, not atomic
+
+`lib/game/rooms.ts` stores each room as one JSON blob in the key-value
+store and updates it with get-then-set. Two players submitting a score in
+the same instant could theoretically clobber each other's write. Documented
+as a known limitation rather than solved with Lua scripts/transactions,
+since this is a free-to-play friends feature (6-char room, nicknames only,
+24h expiry) where the cost of a rare lost update is low and the brief's
+emphasis is on the recovery/recap pipeline's rigor, not the room store.
+
+## 13. Analytics opt-out is a client-side flag, not a server allow-list
+
+`lib/analytics/track.ts` checks a locally-stored opt-out flag before
+calling `navigator.sendBeacon`. The server endpoint (`app/api/analytics`)
+still only ever receives an event _name_ (no identifiers), so the opt-out
+is a courtesy that stops the beacon from firing at all, on top of the
+payload already being anonymous by construction.
