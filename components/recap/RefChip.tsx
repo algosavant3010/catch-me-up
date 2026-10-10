@@ -5,6 +5,7 @@ import { getBallProof, type BallProof } from "@/lib/match/engine";
 import { useMatchRuntime } from "@/lib/match/match-context";
 import { Sheet } from "@/components/ui/Sheet";
 import { usePreferences } from "@/components/providers/preferences-provider";
+import { ShareButton } from "@/components/share/ShareButton";
 
 export function RefChip({ ballNumber }: { ballNumber: number }) {
   const [open, setOpen] = useState(false);
@@ -54,6 +55,11 @@ function ProofDrawer({
             value={`${Math.round(proof.winProbBefore * 100)}% → ${Math.round(proof.winProbAfter * 100)}%`}
           />
         </dl>
+      )}
+      {proof && (
+        <div className="mt-4">
+          <ShareButton ballNumber={ballNumber} title={outcomeOf(proof.ball)} />
+        </div>
       )}
     </Sheet>
   );

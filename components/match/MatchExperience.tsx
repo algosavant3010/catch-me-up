@@ -11,6 +11,10 @@ import { SpeedControls } from "@/components/scoreboard/SpeedControls";
 import { ActionBar } from "@/components/match/ActionBar";
 import { AlertToasts } from "@/components/alerts/AlertToasts";
 import { SettingsSheet } from "@/components/settings/SettingsSheet";
+import { ChatPulsePanel } from "@/components/chat/ChatPulsePanel";
+import { CallTheNextOverPanel } from "@/components/game/CallTheNextOverPanel";
+import { RoomPanel } from "@/components/game/RoomPanel";
+import { SnapTheTV } from "@/components/vision/SnapTheTV";
 
 export function MatchExperience({ meta, startAtBall }: { meta: MatchMeta; startAtBall: number }) {
   return (
@@ -45,6 +49,14 @@ function MatchLayout() {
       <WinProbChart />
       <TensionMeter />
       <SpeedControls />
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <ChatPulsePanel />
+        <CallTheNextOverPanel />
+        <RoomPanel />
+        <SnapTheTV />
+      </div>
+
       <ActionBar />
       <SettingsSheet open={settingsOpen} onClose={() => setSettingsOpen(false)} />
     </div>

@@ -332,4 +332,113 @@ export async function generateWithTools<T>(params: ToolCallingParams<T>): Promis
   }
 }
 
+interface VisionCallParams<T> {
+  task: string;
+  model: string;
+  systemInstruction: string;
+  imageBase64: string;
+  mimeType: string;
+  schema: z.ZodType<T>;
+  geminiSchema: Schema;
+  timeoutMs: number;
+}
+
+/** Single-shot multimodal call: one image in, structured JSON out. Used only by Snap the TV. */
+export async function generateVision<T>(params: VisionCallParams<T>): Promise<AiResult<T>> {
+  const ai = getClient();
+  const start = Date.now();
+  if (!ai) {
+    return {
+      ok: false,
+      kind: "not_configured",
+      message: "GEMINI_API_KEY is not set.",
+      latencyMs: 0,
+    };
+  }
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), params.timeoutMs);
+
+  try {
+    const response = await ai.models.generateContent({
+      model: params.model,
+      contents: [
+        {
+          role: "user",
+          parts: [
+            { inlineData: { mimeType: params.mimeType, data: params.imageBase64 } },
+            { text: "Read this cricket scoreboard image." },
+          ],
+        },
+      ],
+      config: {
+        systemInstruction: params.systemInstruction,
+        temperature: 0.1,
+        maxOutputTokens: 300,
+        responseMimeType: "application/json",
+        responseSchema: params.geminiSchema,
+        safetySettings: SAFETY_SETTINGS,
+        thinkingConfig: { thinkingLevel: ThinkingLevel.MINIMAL },
+        abortSignal: controller.signal,
+      },
+    });
+    const latencyMs = Date.now() - start;
+
+    const finishReason = response.candidates?.[0]?.finishReason;
+    if (finishReason && finishReason !== "STOP" && finishReason !== "MAX_TOKENS") {
+      return { ok: false, kind: "blocked", message: `Blocked: ${finishReason}`, latencyMs };
+    }
+    const text = response.text;
+    if (!text)
+      return {
+        ok: false,
+        kind: "invalid_response",
+        message: "Empty response from model.",
+        latencyMs,
+      };
+
+    let parsedJson: unknown;
+    try {
+      parsedJson = JSON.parse(text);
+    } catch {
+      return {
+        ok: false,
+        kind: "invalid_response",
+        message: "Model did not return valid JSON.",
+        latencyMs,
+      };
+    }
+    const parsed = params.schema.safeParse(parsedJson);
+    if (!parsed.success) {
+      return {
+        ok: false,
+        kind: "invalid_response",
+        message: "Response did not match schema.",
+        latencyMs,
+      };
+    }
+
+    const totalTokens = response.usageMetadata?.totalTokenCount ?? 0;
+    logCall({ task: params.task, model: params.model, result: "ok", latencyMs, totalTokens });
+    return { ok: true, data: parsed.data, latencyMs, totalTokens };
+  } catch (err) {
+    const latencyMs = Date.now() - start;
+    if (controller.signal.aborted) {
+      return { ok: false, kind: "timeout", message: "Request timed out.", latencyMs };
+    }
+    const status = (err as { status?: number })?.status;
+    if (status === 429) {
+      return { ok: false, kind: "rate_limited", message: "Gemini rate limit hit.", latencyMs };
+    }
+    return {
+      ok: false,
+      kind: "upstream",
+      message: err instanceof Error ? err.message : "Unknown upstream error.",
+      latencyMs,
+    };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 export { getClient as _getGeminiClientForTesting };
