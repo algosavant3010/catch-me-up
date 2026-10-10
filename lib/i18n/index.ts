@@ -33,7 +33,11 @@ export function getStrings(locale: LocaleCode): UiStrings {
 }
 
 /** Simple {placeholder} interpolation — no AI content ever flows through this. */
-export function t(strings: UiStrings, key: keyof UiStrings, vars?: Record<string, string | number>): string {
+export function t(
+  strings: UiStrings,
+  key: keyof UiStrings,
+  vars?: Record<string, string | number>,
+): string {
   let value: string = strings[key];
   if (vars) {
     for (const [k, v] of Object.entries(vars)) {

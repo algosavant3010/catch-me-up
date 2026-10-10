@@ -14,14 +14,26 @@ import { PreferencesProvider } from "@/components/providers/preferences-provider
 import "./globals.css";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
 const notoDevanagari = Noto_Sans_Devanagari({
   variable: "--font-noto-devanagari",
   subsets: ["devanagari"],
   display: "swap",
 });
-const notoTamil = Noto_Sans_Tamil({ variable: "--font-noto-tamil", subsets: ["tamil"], display: "swap" });
-const notoTelugu = Noto_Sans_Telugu({ variable: "--font-noto-telugu", subsets: ["telugu"], display: "swap" });
+const notoTamil = Noto_Sans_Tamil({
+  variable: "--font-noto-tamil",
+  subsets: ["tamil"],
+  display: "swap",
+});
+const notoTelugu = Noto_Sans_Telugu({
+  variable: "--font-noto-telugu",
+  subsets: ["telugu"],
+  display: "swap",
+});
 const notoBengali = Noto_Sans_Bengali({
   variable: "--font-noto-bengali",
   subsets: ["bengali"],

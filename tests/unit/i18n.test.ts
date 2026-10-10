@@ -12,12 +12,15 @@ describe("i18n completeness", () => {
     );
   });
 
-  it.each(LOCALES.map((l) => l.code))("locale '%s' implements every baseline key with non-empty text", (code) => {
-    const strings = STRINGS_BY_LOCALE[code];
-    for (const key of baselineKeys) {
-      expect(strings[key], `${code} is missing or empty for key "${key}"`).toBeTruthy();
-    }
-  });
+  it.each(LOCALES.map((l) => l.code))(
+    "locale '%s' implements every baseline key with non-empty text",
+    (code) => {
+      const strings = STRINGS_BY_LOCALE[code];
+      for (const key of baselineKeys) {
+        expect(strings[key], `${code} is missing or empty for key "${key}"`).toBeTruthy();
+      }
+    },
+  );
 
   it("no locale has extra keys beyond the baseline (keeps the type and the data in sync)", () => {
     for (const locale of LOCALES) {
@@ -27,7 +30,11 @@ describe("i18n completeness", () => {
   });
 
   it("template placeholders are preserved across every translation that uses them", () => {
-    const placeholderKeys: (keyof UiStrings)[] = ["recap.trustBadge", "away.missed", "spoiler.behindBy"];
+    const placeholderKeys: (keyof UiStrings)[] = [
+      "recap.trustBadge",
+      "away.missed",
+      "spoiler.behindBy",
+    ];
     const placeholdersIn = (s: string) => (s.match(/\{[a-zA-Z]+\}/g) ?? []).sort();
     for (const key of placeholderKeys) {
       const expected = placeholdersIn(STRINGS_BY_LOCALE.en[key]);

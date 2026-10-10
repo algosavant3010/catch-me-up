@@ -126,8 +126,7 @@ export function computeMatchState(balls: Ball[], meta: MatchMeta): MatchState {
   const ballsBowled = balls.filter((b) => b.isLegal).length;
   const needed = Math.max(meta.target - runs, 0);
   const ballsLeft = Math.max(totalLegalBalls - ballsBowled, 0);
-  const matchJustEnded =
-    needed === 0 || wickets >= 10 || (ballsLeft === 0 && balls.length > 0);
+  const matchJustEnded = needed === 0 || wickets >= 10 || (ballsLeft === 0 && balls.length > 0);
   const winProb = winProbability(needed, ballsLeft, wickets);
 
   return {

@@ -4,7 +4,8 @@ export const hinglish: UiStrings = {
   "app.name": "Catch Me Up",
   "app.tagline": "20 second mein match mein wapas aa jao.",
   "app.simulatedBanner": "Yeh simulated match hai — fictional teams, sirf demo ke liye.",
-  "app.privacyNote": "Koi account nahi. Questions ya images save nahi hoti. Sirf anonymous usage count.",
+  "app.privacyNote":
+    "Koi account nahi. Questions ya images save nahi hoti. Sirf anonymous usage count.",
 
   "onboarding.step1Title": "Apni language chuno",
   "onboarding.step2Title": "Apna mode chuno",
@@ -59,7 +60,8 @@ export const hinglish: UiStrings = {
 
   "ask.placeholder": "Match ke baare mein poochho…",
   "ask.suggestedTitle": "Yeh try karo",
-  "ask.offTopic": "Main sirf isi match mein help kar sakta hoon — score, player, ya rules ke baare mein poochho.",
+  "ask.offTopic":
+    "Main sirf isi match mein help kar sakta hoon — score, player, ya rules ke baare mein poochho.",
 
   "listen.play": "Play",
   "listen.pause": "Pause",

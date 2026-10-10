@@ -98,14 +98,4 @@ export interface UiStrings {
   "theme.dark": string;
 }
 
-export type LocaleCode =
-  | "en"
-  | "hinglish"
-  | "hi"
-  | "ta"
-  | "te"
-  | "mr"
-  | "bn"
-  | "kn"
-  | "gu"
-  | "pa";
+export type LocaleCode = "en" | "hinglish" | "hi" | "ta" | "te" | "mr" | "bn" | "kn" | "gu" | "pa";

@@ -20,7 +20,13 @@ const BATTING_ORDER = [
   "Karthik Subramaniam",
 ];
 
-const BOWLER_ROTATION = ["Marcus Boyd", "Trent Walsh", "Zaheer Baig", "Harshal Deshpande", "Sunil Thakur"];
+const BOWLER_ROTATION = [
+  "Marcus Boyd",
+  "Trent Walsh",
+  "Zaheer Baig",
+  "Harshal Deshpande",
+  "Sunil Thakur",
+];
 
 // Each over is a compact token list. Tokens:
 //   "0".."6"  -> legal ball, runs off the bat, no wicket
@@ -158,5 +164,7 @@ const output = { meta, balls };
 const outPath = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "data", "match.json");
 writeFileSync(outPath, JSON.stringify(output, null, 2) + "\n", "utf8");
 
-console.log(`Generated ${balls.length} deliveries. Final score: ${teamRuns}/${teamWickets}. Target: ${TARGET}.`);
+console.log(
+  `Generated ${balls.length} deliveries. Final score: ${teamRuns}/${teamWickets}. Target: ${TARGET}.`,
+);
 console.log(teamRuns >= TARGET ? "Result: Konkan Kings WIN" : "Result: Konkan Kings fall short");

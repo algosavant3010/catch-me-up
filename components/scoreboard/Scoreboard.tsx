@@ -29,15 +29,24 @@ export function Scoreboard() {
       </div>
 
       <div className="mt-3 grid grid-cols-3 gap-2 text-center text-sm">
-        <Stat label={strings["scoreboard.need"]} value={state.needed > 0 ? `${state.needed} / ${state.ballsLeft}b` : "—"} />
+        <Stat
+          label={strings["scoreboard.need"]}
+          value={state.needed > 0 ? `${state.needed} / ${state.ballsLeft}b` : "—"}
+        />
         <Stat label={strings["scoreboard.crr"]} value={stats.crr.toFixed(1)} />
-        <Stat label={strings["scoreboard.rrr"]} value={stats.rrr !== null ? stats.rrr.toFixed(1) : "—"} />
+        <Stat
+          label={strings["scoreboard.rrr"]}
+          value={stats.rrr !== null ? stats.rrr.toFixed(1) : "—"}
+        />
       </div>
 
       <div className="mt-4 grid gap-2 text-sm">
         <p className="text-xs text-(--color-text-muted)">{strings["scoreboard.batters"]}</p>
         {state.crease.map((b) => (
-          <div key={b.name} className="flex items-center justify-between rounded-(--radius-sm) bg-(--color-surface-2) px-3 py-1.5">
+          <div
+            key={b.name}
+            className="flex items-center justify-between rounded-(--radius-sm) bg-(--color-surface-2) px-3 py-1.5"
+          >
             <span className="flex items-center gap-1.5 font-medium">
               {b.onStrike && (
                 <span aria-hidden className="text-(--color-accent)">
@@ -47,7 +56,7 @@ export function Scoreboard() {
               {b.name}
               {b.onStrike && <span className="sr-only"> (on strike)</span>}
             </span>
-            <span className="tabular-nums text-(--color-text-muted)">
+            <span className="text-(--color-text-muted) tabular-nums">
               {b.runs} ({b.balls})
             </span>
           </div>

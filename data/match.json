@@ -21,13 +21,7 @@
     },
     "bowlingTeam": {
       "name": "Deccan Daredevils",
-      "players": [
-        "Marcus Boyd",
-        "Trent Walsh",
-        "Zaheer Baig",
-        "Harshal Deshpande",
-        "Sunil Thakur"
-      ]
+      "players": ["Marcus Boyd", "Trent Walsh", "Zaheer Baig", "Harshal Deshpande", "Sunil Thakur"]
     },
     "target": 136,
     "oversLimit": 20,

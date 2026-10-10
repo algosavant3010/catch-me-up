@@ -59,7 +59,8 @@ export const en: UiStrings = {
 
   "ask.placeholder": "Ask about the match…",
   "ask.suggestedTitle": "Try asking",
-  "ask.offTopic": "I can only help with this match — try asking about the score, a player, or the rules.",
+  "ask.offTopic":
+    "I can only help with this match — try asking about the score, a player, or the rules.",
 
   "listen.play": "Play",
   "listen.pause": "Pause",

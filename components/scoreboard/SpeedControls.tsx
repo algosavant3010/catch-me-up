@@ -18,7 +18,9 @@ export function SpeedControls() {
             onClick={() => setSpeed(s)}
             aria-pressed={speed === s}
             className={`px-3 py-1.5 font-medium ${
-              speed === s ? "bg-(--color-accent) text-white" : "bg-(--color-surface) text-(--color-text-muted)"
+              speed === s
+                ? "bg-(--color-accent) text-white"
+                : "bg-(--color-surface) text-(--color-text-muted)"
             }`}
           >
             {s}x

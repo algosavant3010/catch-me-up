@@ -7,7 +7,8 @@ export interface LocaleMeta {
   /** BCP-47 tag used for Web Speech API voice selection. */
   bcp47: string;
   /** Unicode script this language needs a Noto fallback font for (null = Latin only). */
-  script: "devanagari" | "tamil" | "telugu" | "bengali" | "kannada" | "gujarati" | "gurmukhi" | null;
+  script:
+    "devanagari" | "tamil" | "telugu" | "bengali" | "kannada" | "gujarati" | "gurmukhi" | null;
 }
 
 export const LOCALES: LocaleMeta[] = [

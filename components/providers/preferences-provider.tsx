@@ -45,7 +45,9 @@ const DEFAULTS: StoredPreferences = {
 };
 
 function systemPrefersLight(): boolean {
-  return typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: light)").matches;
+  return (
+    typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: light)").matches
+  );
 }
 
 function hasExplicitTheme(): boolean {
@@ -65,7 +67,9 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
 
   // Apply the OS theme preference the first time this device has never saved one.
   const theme =
-    stored.theme === DEFAULTS.theme && !hasExplicitTheme() && systemPrefersLight() ? "light" : stored.theme;
+    stored.theme === DEFAULTS.theme && !hasExplicitTheme() && systemPrefersLight()
+      ? "light"
+      : stored.theme;
   const locale = isLocaleCode(stored.locale) ? stored.locale : DEFAULT_LOCALE;
 
   useEffect(() => {

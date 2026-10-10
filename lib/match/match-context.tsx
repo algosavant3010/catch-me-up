@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { Ball, MatchMeta } from "./types";
 import { SimulatedProvider, type SpeedMultiplier } from "./providers";
 
@@ -27,10 +27,7 @@ export function MatchRuntimeProvider({
   startAtBall?: number;
   children: React.ReactNode;
 }) {
-  const providerRef = useRef<SimulatedProvider | null>(null);
-  if (!providerRef.current) providerRef.current = new SimulatedProvider();
-  const provider = providerRef.current;
-
+  const [provider] = useState(() => new SimulatedProvider());
   const allBalls = useMemo(() => provider.getAllBalls(), [provider]);
   const [balls, setBalls] = useState<Ball[]>(() =>
     startAtBall > 0 ? allBalls.filter((b) => b.n <= startAtBall) : [],

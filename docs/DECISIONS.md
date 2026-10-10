@@ -28,7 +28,7 @@ Verified live against the real Gemini API on 2026-10-10 (see
   selectable via env var for anyone with more output-token budget to spare.
 - **Rejected: `gemini-2.5-flash` / `gemini-2.5-flash-lite`.** Google's own
   docs (checked live) state access to the 2.5 family is now limited to
-  projects that have *already* used them; new API keys should use 3.5/3.8.
+  projects that have _already_ used them; new API keys should use 3.5/3.8.
   Our key is new, so depending on 2.5 would be a latent failure.
 - Model names are **never hardcoded** in route handlers — every call site
   reads `process.env.GEMINI_MODEL_QUALITY` / `GEMINI_MODEL_FAST` through

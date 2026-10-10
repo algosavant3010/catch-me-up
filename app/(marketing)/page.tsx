@@ -14,9 +14,7 @@ export default function MarketingPage() {
         <span className="rounded-full bg-black/20 px-4 py-1 text-xs font-medium tracking-wide uppercase">
           Simulated match — fictional teams, for demo purposes only
         </span>
-        <h1 className="max-w-2xl text-4xl font-bold text-balance sm:text-5xl">
-          Catch Me Up
-        </h1>
+        <h1 className="max-w-2xl text-4xl font-bold text-balance sm:text-5xl">Catch Me Up</h1>
         <p className="max-w-xl text-lg text-white/90">
           Missed a few overs? Get back into the match in 20 seconds — in your language, without
           spoilers, and every number checked before you see it.
@@ -55,8 +53,8 @@ export default function MarketingPage() {
       <footer className="mx-auto w-full max-w-4xl px-6 pb-16 text-sm text-(--color-text-muted)">
         <p>
           No accounts. No stored questions or images. Anonymous usage counts only. This is a
-          simulated match with fictional teams and players — it is not affiliated with Dream11,
-          the BCCI, or any real league.
+          simulated match with fictional teams and players — it is not affiliated with Dream11, the
+          BCCI, or any real league.
         </p>
       </footer>
     </main>

@@ -44,9 +44,10 @@
 @theme inline {
   --color-background: var(--color-bg);
   --color-foreground: var(--color-text);
-  --font-sans: var(--font-inter), var(--font-noto-devanagari), var(--font-noto-tamil),
-    var(--font-noto-telugu), var(--font-noto-bengali), var(--font-noto-kannada),
-    var(--font-noto-gujarati), var(--font-noto-gurmukhi), ui-sans-serif, system-ui, sans-serif;
+  --font-sans:
+    var(--font-inter), var(--font-noto-devanagari), var(--font-noto-tamil), var(--font-noto-telugu),
+    var(--font-noto-bengali), var(--font-noto-kannada), var(--font-noto-gujarati),
+    var(--font-noto-gurmukhi), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
@@ -92,4 +93,3 @@ body {
   left: 1rem;
   top: 1rem;
 }
-

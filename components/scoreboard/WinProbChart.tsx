@@ -36,7 +36,9 @@ export function WinProbChart() {
     );
   }
 
-  const path = points.map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
+  const path = points
+    .map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)},${p.y.toFixed(1)}`)
+    .join(" ");
   const wickets = points.filter((p) => p.wicket);
 
   return (
@@ -47,10 +49,31 @@ export function WinProbChart() {
         aria-label={`Win probability chart, currently ${Math.round(state.winProb * 100)}%`}
         className="h-24 w-full motion-reduce:[&_*]:transition-none"
       >
-        <line x1="0" y1={HEIGHT / 2} x2={WIDTH} y2={HEIGHT / 2} stroke="var(--color-border)" strokeDasharray="4 4" />
-        <path d={path} fill="none" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" />
+        <line
+          x1="0"
+          y1={HEIGHT / 2}
+          x2={WIDTH}
+          y2={HEIGHT / 2}
+          stroke="var(--color-border)"
+          strokeDasharray="4 4"
+        />
+        <path
+          d={path}
+          fill="none"
+          stroke="var(--color-accent)"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
         {wickets.map((w, i) => (
-          <circle key={i} cx={w.x} cy={w.y} r="3.5" fill="var(--color-danger)" stroke="var(--color-surface)" strokeWidth="1" />
+          <circle
+            key={i}
+            cx={w.x}
+            cy={w.y}
+            r="3.5"
+            fill="var(--color-danger)"
+            stroke="var(--color-surface)"
+            strokeWidth="1"
+          />
         ))}
       </svg>
     </div>

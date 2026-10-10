@@ -5,7 +5,10 @@ import { tensionLabel } from "@/lib/match/engine";
 import { useMatchState } from "@/lib/match/use-match-state";
 import type { TensionLabel } from "@/lib/match/types";
 
-const LABEL_KEY: Record<TensionLabel, "tension.calm" | "tension.building" | "tension.tense" | "tension.edgeOfSeat"> = {
+const LABEL_KEY: Record<
+  TensionLabel,
+  "tension.calm" | "tension.building" | "tension.tense" | "tension.edgeOfSeat"
+> = {
   Calm: "tension.calm",
   Building: "tension.building",
   Tense: "tension.tense",
