@@ -198,7 +198,12 @@ export async function generateWithTools<T>(params: ToolCallingParams<T>): Promis
   const ai = getClient();
   const start = Date.now();
   if (!ai) {
-    return { ok: false, kind: "not_configured", message: "GEMINI_API_KEY is not set.", latencyMs: 0 };
+    return {
+      ok: false,
+      kind: "not_configured",
+      message: "GEMINI_API_KEY is not set.",
+      latencyMs: 0,
+    };
   }
 
   const controller = new AbortController();
@@ -227,7 +232,13 @@ export async function generateWithTools<T>(params: ToolCallingParams<T>): Promis
       const finishReason = response.candidates?.[0]?.finishReason;
       if (finishReason && finishReason !== "STOP" && finishReason !== "MAX_TOKENS") {
         const latencyMs = Date.now() - start;
-        logCall({ task: params.task, model: params.model, result: "blocked", finishReason, latencyMs });
+        logCall({
+          task: params.task,
+          model: params.model,
+          result: "blocked",
+          finishReason,
+          latencyMs,
+        });
         return { ok: false, kind: "blocked", message: `Blocked: ${finishReason}`, latencyMs };
       }
 
@@ -237,13 +248,23 @@ export async function generateWithTools<T>(params: ToolCallingParams<T>): Promis
         const text = response.text;
         if (!text) {
           logCall({ task: params.task, model: params.model, result: "empty", latencyMs });
-          return { ok: false, kind: "invalid_response", message: "Empty response from model.", latencyMs };
+          return {
+            ok: false,
+            kind: "invalid_response",
+            message: "Empty response from model.",
+            latencyMs,
+          };
         }
         let parsedJson: unknown;
         try {
           parsedJson = JSON.parse(text);
         } catch {
-          return { ok: false, kind: "invalid_response", message: "Model did not return valid JSON.", latencyMs };
+          return {
+            ok: false,
+            kind: "invalid_response",
+            message: "Model did not return valid JSON.",
+            latencyMs,
+          };
         }
         const parsed = params.schema.safeParse(parsedJson);
         if (!parsed.success) {
@@ -255,7 +276,14 @@ export async function generateWithTools<T>(params: ToolCallingParams<T>): Promis
           };
         }
         const totalTokens = response.usageMetadata?.totalTokenCount ?? 0;
-        logCall({ task: params.task, model: params.model, result: "ok", latencyMs, totalTokens, rounds: round });
+        logCall({
+          task: params.task,
+          model: params.model,
+          result: "ok",
+          latencyMs,
+          totalTokens,
+          rounds: round,
+        });
         return { ok: true, data: parsed.data, latencyMs, totalTokens };
       }
 
@@ -267,14 +295,22 @@ export async function generateWithTools<T>(params: ToolCallingParams<T>): Promis
       contents.push({
         role: "user",
         parts: calls.map((call) => ({
-          functionResponse: { name: call.name, response: { output: params.executeTool(call.name ?? "", call.args ?? {}) } },
+          functionResponse: {
+            name: call.name,
+            response: { output: params.executeTool(call.name ?? "", call.args ?? {}) },
+          },
         })),
       });
     }
 
     const latencyMs = Date.now() - start;
     logCall({ task: params.task, model: params.model, result: "max_rounds_exceeded", latencyMs });
-    return { ok: false, kind: "invalid_response", message: "Exceeded maximum tool-call rounds.", latencyMs };
+    return {
+      ok: false,
+      kind: "invalid_response",
+      message: "Exceeded maximum tool-call rounds.",
+      latencyMs,
+    };
   } catch (err) {
     const latencyMs = Date.now() - start;
     if (controller.signal.aborted) {
@@ -285,7 +321,12 @@ export async function generateWithTools<T>(params: ToolCallingParams<T>): Promis
     if (status === 429) {
       return { ok: false, kind: "rate_limited", message: "Gemini rate limit hit.", latencyMs };
     }
-    return { ok: false, kind: "upstream", message: err instanceof Error ? err.message : "Unknown upstream error.", latencyMs };
+    return {
+      ok: false,
+      kind: "upstream",
+      message: err instanceof Error ? err.message : "Unknown upstream error.",
+      latencyMs,
+    };
   } finally {
     clearTimeout(timer);
   }

@@ -207,7 +207,11 @@ export interface BallProof {
   winProbAfter: number;
 }
 
-export function getBallProof(allBalls: Ball[], meta: MatchMeta, ballNumber: number): BallProof | null {
+export function getBallProof(
+  allBalls: Ball[],
+  meta: MatchMeta,
+  ballNumber: number,
+): BallProof | null {
   const index = allBalls.findIndex((b) => b.n === ballNumber);
   if (index === -1) return null;
   const before = computeMatchState(allBalls.slice(0, index), meta);

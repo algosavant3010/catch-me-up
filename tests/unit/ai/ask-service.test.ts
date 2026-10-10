@@ -24,14 +24,33 @@ describe("askSamjhao", () => {
       totalTokens: 20,
       data: { answer: "They need 90 runs from 83 balls.", refs: [37], onTopic: true },
     });
-    const result = await askSamjhao({ question: "What's the required rate?", allBalls, meta, cutoffBall: 37, locale: "en", mode: "beginner" });
+    const result = await askSamjhao({
+      question: "What's the required rate?",
+      allBalls,
+      meta,
+      cutoffBall: 37,
+      locale: "en",
+      mode: "beginner",
+    });
     expect(result.source).toBe("ai");
     expect(result.onTopic).toBe(true);
   });
 
   it("falls back to a deterministic score answer when Gemini is unavailable", async () => {
-    mockGenerate.mockResolvedValueOnce({ ok: false, kind: "not_configured", message: "x", latencyMs: 0 });
-    const result = await askSamjhao({ question: "What's the score?", allBalls, meta, cutoffBall: 37, locale: "en", mode: "beginner" });
+    mockGenerate.mockResolvedValueOnce({
+      ok: false,
+      kind: "not_configured",
+      message: "x",
+      latencyMs: 0,
+    });
+    const result = await askSamjhao({
+      question: "What's the score?",
+      allBalls,
+      meta,
+      cutoffBall: 37,
+      locale: "en",
+      mode: "beginner",
+    });
     expect(result.source).toBe("fallback");
     expect(result.answer).toContain("46/2");
   });
@@ -65,7 +84,14 @@ describe("askSamjhao", () => {
       data: { answer: "ok", refs: [], onTopic: true },
     });
     const longQuestion = "a".repeat(5000);
-    await askSamjhao({ question: longQuestion, allBalls, meta, cutoffBall: 37, locale: "en", mode: "beginner" });
+    await askSamjhao({
+      question: longQuestion,
+      allBalls,
+      meta,
+      cutoffBall: 37,
+      locale: "en",
+      mode: "beginner",
+    });
     const callArgs = mockGenerate.mock.calls[0][0];
     const userText = (callArgs.contents[0].parts?.[0] as { text: string }).text;
     expect(userText.length).toBeLessThan(400);
@@ -78,7 +104,14 @@ describe("askSamjhao", () => {
       totalTokens: 10,
       data: { answer: "irrelevant", refs: [], onTopic: false },
     });
-    const result = await askSamjhao({ question: "What's the weather today?", allBalls, meta, cutoffBall: 37, locale: "en", mode: "beginner" });
+    const result = await askSamjhao({
+      question: "What's the weather today?",
+      allBalls,
+      meta,
+      cutoffBall: 37,
+      locale: "en",
+      mode: "beginner",
+    });
     expect(result.onTopic).toBe(false);
   });
 });

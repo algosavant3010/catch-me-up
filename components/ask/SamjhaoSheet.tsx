@@ -60,7 +60,9 @@ export function SamjhaoSheet({ open, onClose }: { open: boolean; onClose: () => 
         <div className="flex flex-1 flex-col gap-3 overflow-y-auto">
           {history.map((h, i) => (
             <div key={i} className="flex flex-col gap-1">
-              <p className="self-end rounded-(--radius-md) bg-(--color-accent) px-3 py-2 text-sm text-white">{h.question}</p>
+              <p className="self-end rounded-(--radius-md) bg-(--color-accent) px-3 py-2 text-sm text-white">
+                {h.question}
+              </p>
               <div className="rounded-(--radius-md) bg-(--color-surface-2) px-3 py-2 text-sm">
                 <p>{h.response.onTopic ? h.response.answer : strings["ask.offTopic"]}</p>
                 {h.response.refs.length > 0 && (

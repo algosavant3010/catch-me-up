@@ -32,13 +32,19 @@ export function CatchMeUpSheet({
 
   return (
     <Sheet open={open} onClose={onClose} title={strings["recap.title"]}>
-      {(status === "idle" || status === "loading") && <p className="text-sm text-(--color-text-muted)">{strings["recap.loading"]}</p>}
-      {status === "error" && <p className="text-sm text-(--color-danger)">{errorMessage ?? strings["state.error"]}</p>}
+      {(status === "idle" || status === "loading") && (
+        <p className="text-sm text-(--color-text-muted)">{strings["recap.loading"]}</p>
+      )}
+      {status === "error" && (
+        <p className="text-sm text-(--color-danger)">{errorMessage ?? strings["state.error"]}</p>
+      )}
 
       {(status === "streaming" || status === "done") && (
         <div className="flex flex-col gap-4">
           {headline && <h3 className="text-xl font-bold">{headline}</h3>}
-          {trust && <TrustBadge verified={trust.verified} total={trust.total} source={trust.source} />}
+          {trust && (
+            <TrustBadge verified={trust.verified} total={trust.total} source={trust.source} />
+          )}
           <div className="flex flex-col gap-3">
             {lines.map((line, i) => (
               <div key={i} className="rounded-(--radius-md) bg-(--color-surface-2) p-3">

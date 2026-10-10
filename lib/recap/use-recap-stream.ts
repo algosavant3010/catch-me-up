@@ -24,62 +24,84 @@ type StreamChunk =
   | { type: "line"; kind: RecapLineData["kind"]; text: string; refs: number[] }
   | { type: "done" };
 
-const initialState: RecapStreamState = { status: "idle", headline: null, trust: null, lines: [], errorMessage: null };
+const initialState: RecapStreamState = {
+  status: "idle",
+  headline: null,
+  trust: null,
+  lines: [],
+  errorMessage: null,
+};
 
 export function useRecapStream() {
   const [state, setState] = useState<RecapStreamState>(initialState);
 
-  const start = useCallback(async (args: { from: number; to: number; locale: LocaleCode; mode: FanMode }) => {
-    setState({ ...initialState, status: "loading" });
-    try {
-      const res = await fetch("/api/recap", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(args),
-      });
-      if (!res.ok || !res.body) {
-        const body = await res.json().catch(() => ({}));
-        setState((s) => ({ ...s, status: "error", errorMessage: body.error ?? `Request failed (${res.status}).` }));
-        return;
-      }
-
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = "";
-      setState((s) => ({ ...s, status: "streaming" }));
-
-      for (;;) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-        const parts = buffer.split("\n");
-        buffer = parts.pop() ?? "";
-        for (const part of parts) {
-          if (!part.trim()) continue;
-          const chunk = JSON.parse(part) as StreamChunk;
-          applyChunk(chunk, setState);
+  const start = useCallback(
+    async (args: { from: number; to: number; locale: LocaleCode; mode: FanMode }) => {
+      setState({ ...initialState, status: "loading" });
+      try {
+        const res = await fetch("/api/recap", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(args),
+        });
+        if (!res.ok || !res.body) {
+          const body = await res.json().catch(() => ({}));
+          setState((s) => ({
+            ...s,
+            status: "error",
+            errorMessage: body.error ?? `Request failed (${res.status}).`,
+          }));
+          return;
         }
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+        setState((s) => ({ ...s, status: "streaming" }));
+
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const parts = buffer.split("\n");
+          buffer = parts.pop() ?? "";
+          for (const part of parts) {
+            if (!part.trim()) continue;
+            const chunk = JSON.parse(part) as StreamChunk;
+            applyChunk(chunk, setState);
+          }
+        }
+        setState((s) => (s.status === "error" ? s : { ...s, status: "done" }));
+      } catch {
+        setState((s) => ({ ...s, status: "error", errorMessage: "Could not reach the server." }));
       }
-      setState((s) => (s.status === "error" ? s : { ...s, status: "done" }));
-    } catch {
-      setState((s) => ({ ...s, status: "error", errorMessage: "Could not reach the server." }));
-    }
-  }, []);
+    },
+    [],
+  );
 
   const reset = useCallback(() => setState(initialState), []);
 
   return { ...state, start, reset };
 }
 
-function applyChunk(chunk: StreamChunk, setState: React.Dispatch<React.SetStateAction<RecapStreamState>>) {
+function applyChunk(
+  chunk: StreamChunk,
+  setState: React.Dispatch<React.SetStateAction<RecapStreamState>>,
+) {
   setState((s) => {
     switch (chunk.type) {
       case "headline":
         return { ...s, headline: chunk.text };
       case "trust":
-        return { ...s, trust: { source: chunk.source, verified: chunk.verified, total: chunk.total } };
+        return {
+          ...s,
+          trust: { source: chunk.source, verified: chunk.verified, total: chunk.total },
+        };
       case "line":
-        return { ...s, lines: [...s.lines, { kind: chunk.kind, text: chunk.text, refs: chunk.refs }] };
+        return {
+          ...s,
+          lines: [...s.lines, { kind: chunk.kind, text: chunk.text, refs: chunk.refs }],
+        };
       case "done":
         return { ...s, status: "done" };
       default:

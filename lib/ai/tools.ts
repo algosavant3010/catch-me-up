@@ -64,7 +64,11 @@ function visibleBalls(ctx: ToolContext): Ball[] {
   return ctx.allBalls.filter((b) => b.n <= ctx.cutoffBall);
 }
 
-export function executeTool(name: string, args: Record<string, unknown>, ctx: ToolContext): Record<string, unknown> {
+export function executeTool(
+  name: string,
+  args: Record<string, unknown>,
+  ctx: ToolContext,
+): Record<string, unknown> {
   const visible = visibleBalls(ctx);
 
   switch (name) {
@@ -104,7 +108,13 @@ export function executeTool(name: string, args: Record<string, unknown>, ctx: To
       if (!visible.some((b) => b.n === ballNumber)) return { found: false };
       const prefix = visible.filter((b) => b.n <= ballNumber);
       const state = computeMatchState(prefix, ctx.meta);
-      return { found: true, ball: ballNumber, winProbPercent: Math.round(winProbability(state.needed, state.ballsLeft, state.wickets) * 100) };
+      return {
+        found: true,
+        ball: ballNumber,
+        winProbPercent: Math.round(
+          winProbability(state.needed, state.ballsLeft, state.wickets) * 100,
+        ),
+      };
     }
     default:
       return { found: false, error: `Unknown tool: ${name}` };

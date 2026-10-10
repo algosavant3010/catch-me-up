@@ -28,13 +28,19 @@ export async function POST(req: Request): Promise<Response> {
 
   const parsed = AskRequest.safeParse(body);
   if (!parsed.success) {
-    return Response.json({ error: "Invalid request.", issues: parsed.error.issues }, { status: 400 });
+    return Response.json(
+      { error: "Invalid request.", issues: parsed.error.issues },
+      { status: 400 },
+    );
   }
 
   const ip = getClientIp(req.headers);
   const rate = await checkRateLimit(`ip:${ip}:ask`, 12, 60);
   if (!rate.allowed) {
-    return Response.json({ error: "Too many requests. Please wait a moment and try again." }, { status: 429 });
+    return Response.json(
+      { error: "Too many requests. Please wait a moment and try again." },
+      { status: 429 },
+    );
   }
 
   const { question, cutoffBall, locale, mode } = parsed.data;

@@ -22,7 +22,15 @@ export function RefChip({ ballNumber }: { ballNumber: number }) {
   );
 }
 
-function ProofDrawer({ ballNumber, open, onClose }: { ballNumber: number; open: boolean; onClose: () => void }) {
+function ProofDrawer({
+  ballNumber,
+  open,
+  onClose,
+}: {
+  ballNumber: number;
+  open: boolean;
+  onClose: () => void;
+}) {
   const { meta, balls } = useMatchRuntime();
   const { strings } = usePreferences();
   const proof = open ? getBallProof(balls, meta, ballNumber) : null;
@@ -33,7 +41,10 @@ function ProofDrawer({ ballNumber, open, onClose }: { ballNumber: number; open: 
         <p className="text-sm text-(--color-text-muted)">{strings["state.empty"]}</p>
       ) : (
         <dl className="grid grid-cols-2 gap-3 text-sm">
-          <Row label="Ball" value={`${proof.ball.over}.${proof.ball.ballInOver} (b${proof.ball.n})`} />
+          <Row
+            label="Ball"
+            value={`${proof.ball.over}.${proof.ball.ballInOver} (b${proof.ball.n})`}
+          />
           <Row label={strings["scoreboard.bowler"]} value={proof.ball.bowler} />
           <Row label="Batter" value={proof.ball.batter} />
           <Row label="Outcome" value={outcomeOf(proof.ball)} />

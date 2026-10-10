@@ -46,22 +46,38 @@ export function ListenControls({ text }: { text: string }) {
   return (
     <div className="flex items-center gap-2 text-xs">
       {state === "idle" && (
-        <button type="button" onClick={play} className="rounded-full bg-(--color-accent) px-3 py-1 font-medium text-white">
+        <button
+          type="button"
+          onClick={play}
+          className="rounded-full bg-(--color-accent) px-3 py-1 font-medium text-white"
+        >
           {strings["listen.play"]}
         </button>
       )}
       {state === "playing" && (
-        <button type="button" onClick={pause} className="rounded-full border border-(--color-border) px-3 py-1 font-medium">
+        <button
+          type="button"
+          onClick={pause}
+          className="rounded-full border border-(--color-border) px-3 py-1 font-medium"
+        >
           {strings["listen.pause"]}
         </button>
       )}
       {state === "paused" && (
-        <button type="button" onClick={resume} className="rounded-full border border-(--color-border) px-3 py-1 font-medium">
+        <button
+          type="button"
+          onClick={resume}
+          className="rounded-full border border-(--color-border) px-3 py-1 font-medium"
+        >
           {strings["listen.play"]}
         </button>
       )}
       {state !== "idle" && (
-        <button type="button" onClick={stop} className="rounded-full border border-(--color-border) px-3 py-1 font-medium">
+        <button
+          type="button"
+          onClick={stop}
+          className="rounded-full border border-(--color-border) px-3 py-1 font-medium"
+        >
           {strings["listen.stop"]}
         </button>
       )}

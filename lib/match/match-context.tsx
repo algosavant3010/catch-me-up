@@ -1,12 +1,27 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import type { Ball, MatchMeta } from "./types";
 import { SimulatedProvider, type SpeedMultiplier } from "./providers";
+import { spoilerStore } from "@/lib/spoiler/delay-store";
 
 interface MatchRuntime {
   meta: MatchMeta;
+  /** Every ball received so far, with no spoiler delay applied. */
   balls: Ball[];
+  /** `balls` held back by the fan's Spoiler Shield delay — use this for anything the fan looks at. */
+  displayBalls: Ball[];
+  delaySeconds: number;
+  /** Subscribes to raw ball arrivals (with wall-clock emission time) — used by the calibration flow. */
+  onBallEmitted: (cb: (ball: Ball, emittedAt: number) => void) => () => void;
   speed: SpeedMultiplier;
   paused: boolean;
   setSpeed: (s: SpeedMultiplier) => void;
@@ -45,18 +60,54 @@ export function MatchRuntimeProvider({
   const [paused, setPaused] = useState(false);
   const [lastSeenBall, setLastSeenBall] = useState(startAtBall);
   const [awayFromBall, setAwayFromBall] = useState<number | null>(null);
+  const emittedAtRef = useRef(new Map<number, number>());
+  const rawListenersRef = useRef(new Set<(ball: Ball, emittedAt: number) => void>());
+  const spoiler = useSyncExternalStore(
+    spoilerStore.subscribe,
+    spoilerStore.getSnapshot,
+    spoilerStore.getServerSnapshot,
+  );
 
   useEffect(() => {
     if (startAtBall > 0) {
       // Fast-forward the provider's internal cursor so streaming resumes from here.
       provider.jumpCursorTo(startAtBall);
+      for (const b of allBalls.filter((x) => x.n <= startAtBall))
+        emittedAtRef.current.set(b.n, Date.now());
     }
     const unsubscribe = provider.stream((ball) => {
+      const emittedAt = Date.now();
+      emittedAtRef.current.set(ball.n, emittedAt);
+      rawListenersRef.current.forEach((cb) => cb(ball, emittedAt));
       setBalls((prev) => (prev.some((b) => b.n === ball.n) ? prev : [...prev, ball]));
     });
     return unsubscribe;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Recomputes the spoiler-delayed view in an effect (never during render,
+  // since it depends on the impure Date.now() and a ref) — ticks on a timer
+  // so the delayed view catches up even with no new balls arriving.
+  const [displayBalls, setDisplayBalls] = useState<Ball[]>(balls);
+  useEffect(() => {
+    const recompute = () => {
+      if (spoiler.delaySeconds <= 0) {
+        setDisplayBalls(balls);
+        return;
+      }
+      const cutoff = Date.now() - spoiler.delaySeconds * 1000;
+      setDisplayBalls(balls.filter((b) => (emittedAtRef.current.get(b.n) ?? 0) <= cutoff));
+    };
+    recompute();
+    if (spoiler.delaySeconds <= 0) return;
+    const id = setInterval(recompute, 500);
+    return () => clearInterval(id);
+  }, [balls, spoiler.delaySeconds]);
+
+  const onBallEmitted = (cb: (ball: Ball, emittedAt: number) => void) => {
+    rawListenersRef.current.add(cb);
+    return () => rawListenersRef.current.delete(cb);
+  };
 
   const setSpeed = (s: SpeedMultiplier) => {
     setSpeedState(s);
@@ -101,6 +152,9 @@ export function MatchRuntimeProvider({
     () => ({
       meta,
       balls,
+      displayBalls,
+      delaySeconds: spoiler.delaySeconds,
+      onBallEmitted,
       speed,
       paused,
       setSpeed,
@@ -114,7 +168,7 @@ export function MatchRuntimeProvider({
       comeBack,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [meta, balls, speed, paused, lastSeenBall, awayFromBall],
+    [meta, balls, displayBalls, spoiler.delaySeconds, speed, paused, lastSeenBall, awayFromBall],
   );
 
   return <MatchRuntimeContext.Provider value={value}>{children}</MatchRuntimeContext.Provider>;

@@ -11,7 +11,10 @@ export function AwayBadge() {
   if (awayFromBall === null) return null;
 
   const since = balls.filter((b) => b.n > awayFromBall);
-  const stateAtAway = computeMatchState(balls.filter((b) => b.n <= awayFromBall), meta);
+  const stateAtAway = computeMatchState(
+    balls.filter((b) => b.n <= awayFromBall),
+    meta,
+  );
   const stateNow = computeMatchState(balls, meta);
   const runsMissed = stateNow.runs - stateAtAway.runs;
   const wicketsMissed = stateNow.wickets - stateAtAway.wickets;

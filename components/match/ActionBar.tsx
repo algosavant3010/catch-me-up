@@ -9,7 +9,8 @@ import { AwayBadge } from "@/components/away/AwayBadge";
 
 export function ActionBar() {
   const { strings } = usePreferences();
-  const { balls, lastSeenBall, markSeenUpToNow, awayFromBall, goAway, comeBack } = useMatchRuntime();
+  const { balls, lastSeenBall, markSeenUpToNow, awayFromBall, goAway, comeBack } =
+    useMatchRuntime();
   const [recapWindow, setRecapWindow] = useState<{ from: number; to: number } | null>(null);
   const [askOpen, setAskOpen] = useState(false);
 
@@ -48,13 +49,23 @@ export function ActionBar() {
         </div>
       </nav>
 
-      {recapWindow && <CatchMeUpSheet open onClose={closeCatchMeUp} from={recapWindow.from} to={recapWindow.to} />}
+      {recapWindow && (
+        <CatchMeUpSheet open onClose={closeCatchMeUp} from={recapWindow.from} to={recapWindow.to} />
+      )}
       <SamjhaoSheet open={askOpen} onClose={() => setAskOpen(false)} />
     </>
   );
 }
 
-function ActionButton({ label, onClick, active }: { label: string; onClick: () => void; active?: boolean }) {
+function ActionButton({
+  label,
+  onClick,
+  active,
+}: {
+  label: string;
+  onClick: () => void;
+  active?: boolean;
+}) {
   return (
     <button
       type="button"

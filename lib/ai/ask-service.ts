@@ -41,7 +41,11 @@ export async function askSamjhao(args: {
     timeoutMs: TIMEOUTS.quickMs,
     maxRounds: 4,
     executeTool: (name, toolArgs) =>
-      executeTool(name, toolArgs, { allBalls: args.allBalls, meta: args.meta, cutoffBall: args.cutoffBall }),
+      executeTool(name, toolArgs, {
+        allBalls: args.allBalls,
+        meta: args.meta,
+        cutoffBall: args.cutoffBall,
+      }),
   });
 
   if (result.ok) {
@@ -52,7 +56,11 @@ export async function askSamjhao(args: {
 }
 
 /** Deterministic, non-AI answer: just the current state, no interpretation. */
-function fallbackAnswer(args: { allBalls: Ball[]; meta: MatchMeta; cutoffBall: number }): AskResult {
+function fallbackAnswer(args: {
+  allBalls: Ball[];
+  meta: MatchMeta;
+  cutoffBall: number;
+}): AskResult {
   const visible = args.allBalls.filter((b) => b.n <= args.cutoffBall);
   const state = computeMatchState(visible, args.meta);
   return {
