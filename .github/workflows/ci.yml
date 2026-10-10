@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    env:
+      GEMINI_API_KEY: ""
+      GEMINI_MODEL_QUALITY: gemini-3.6-flash
+      GEMINI_MODEL_FAST: gemini-3.5-flash-lite
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Format check
+        run: npm run format:check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Unit + eval tests (mocked Gemini)
+        run: npm run test:coverage
+
+      - name: Check for leaked secrets in client bundle
+        run: npm run build
+
+      - name: Scan build output for API key / secret leakage
+        shell: bash
+        run: |
+          if grep -R "GEMINI_API_KEY\|AQ\.Ab8" .next/static 2>/dev/null; then
+            echo "Secret or key material found in client bundle!" >&2
+            exit 1
+          fi
+          echo "No secrets found in client bundle."

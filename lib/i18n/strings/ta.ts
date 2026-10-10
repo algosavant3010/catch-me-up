@@ -1,0 +1,89 @@
+import type { UiStrings } from "../types";
+
+export const ta: UiStrings = {
+  "app.name": "கேட்ச் மீ அப்",
+  "app.tagline": "20 வினாடிகளில் மேட்சுக்கு திரும்பி வாருங்கள்.",
+  "app.simulatedBanner": "இது ஒரு சிமுலேட் செய்யப்பட்ட மேட்ச் — கற்பனை அணிகள், டெமோவுக்காக மட்டுமே.",
+  "app.privacyNote": "கணக்கு இல்லை. கேள்விகள் அல்லது படங்கள் சேமிக்கப்படாது. அநாமதேய பயன்பாட்டு எண்ணிக்கை மட்டும்.",
+
+  "onboarding.step1Title": "உங்கள் மொழியைத் தேர்வு செய்யுங்கள்",
+  "onboarding.step2Title": "உங்கள் பயன்முறையைத் தேர்வு செய்யுங்கள்",
+  "onboarding.step3Title": "தொடக்கத்திலிருந்து பாருங்கள், அல்லது தாமதமாக சேருங்கள்",
+  "onboarding.skip": "தவிர்",
+  "onboarding.next": "அடுத்து",
+  "onboarding.done": "தொடங்குவோம்",
+  "onboarding.joinFromStart": "தொடக்கத்திலிருந்து சேருங்கள்",
+  "onboarding.joinLate": "தாமதமாக சேருங்கள்",
+
+  "mode.beginner": "தொடக்கநிலை",
+  "mode.beginnerDesc": "விளையாட்டு சொற்களை எளிமையாக விளக்குகிறது",
+  "mode.pro": "புரோ",
+  "mode.proDesc": "முதலில் எண்கள், விளக்கம் இல்லாமல்",
+  "mode.glance": "ஒரு பார்வை",
+  "mode.glanceDesc": "ஒரே வரியில், அதிகபட்சம் 25 வார்த்தைகள்",
+
+  "nav.catchMeUp": "கேட்ச் மீ அப்",
+  "nav.away": "வெளியே",
+  "nav.ask": "கேளுங்கள்",
+  "nav.back": "பின்னால்",
+  "nav.listen": "கேளுங்கள் (ஆடியோ)",
+  "nav.share": "பகிரவும்",
+  "nav.settings": "அமைப்புகள்",
+
+  "scoreboard.overs": "ஓவர்கள்",
+  "scoreboard.target": "இலக்கு",
+  "scoreboard.need": "தேவை",
+  "scoreboard.crr": "CRR",
+  "scoreboard.rrr": "RRR",
+  "scoreboard.batters": "களத்தில்",
+  "scoreboard.bowler": "பந்துவீச்சாளர்",
+  "scoreboard.winProbability": "வெற்றி வாய்ப்பு",
+
+  "tension.calm": "அமைதி",
+  "tension.building": "பரபரப்பு கூடுகிறது",
+  "tension.tense": "பதற்றம்",
+  "tension.edgeOfSeat": "மூச்சு பிடித்த தருணம்",
+
+  "recap.title": "கேட்ச் மீ அப்",
+  "recap.loading": "உங்களை புதுப்பிக்கிறோம்…",
+  "recap.trustBadge": "{total}-இல் {verified} குறிப்புகள் சரிபார்க்கப்பட்டன",
+  "recap.whyTrust": "ஏன் இதை நம்பலாம்",
+  "recap.whyTrustBody":
+    "ஒவ்வொரு தகவலும் மேட்ச் இன்ஜினில் இருந்து வருகிறது, AI-இல் இருந்து அல்ல. நாங்கள் ஏற்கனவே சரிபார்த்த எண்களை மட்டுமே AI விளக்குகிறது — நிரூபிக்க முடியாதது உங்களுக்குக் காட்டப்படாது.",
+  "recap.fallbackLabel": "உடனடி சுருக்கம் (AI இல்லாமல்)",
+  "recap.proofDrawerTitle": "உண்மையில் என்ன நடந்தது",
+
+  "away.recording": "நீங்கள் வெளியே இருக்கும்போதும் நாங்கள் ஸ்கோரை கணக்கிடுகிறோம்.",
+  "away.missed": "நீங்கள் {balls} பந்துகள், {runs} ரன்கள், {wickets} விக்கெட் தவறவிட்டீர்கள்.",
+  "away.imBack": "நான் திரும்பி வந்துவிட்டேன்",
+
+  "ask.placeholder": "மேட்ச் பற்றி கேளுங்கள்…",
+  "ask.suggestedTitle": "இதை கேட்டு பாருங்கள்",
+  "ask.offTopic": "நான் இந்த மேட்ச் பற்றி மட்டுமே உதவ முடியும் — ஸ்கோர், வீரர் அல்லது விதிகள் பற்றி கேளுங்கள்.",
+
+  "listen.play": "இயக்கு",
+  "listen.pause": "இடைநிறுத்து",
+  "listen.stop": "நிறுத்து",
+  "listen.unavailable": "இந்த சாதனத்தில் குரல் இயக்கம் கிடைக்கவில்லை.",
+
+  "spoiler.title": "ஸ்பாய்லர் ஷீல்ட்",
+  "spoiler.calibrate": "எனது தாமதத்தை அளவீடு செய்",
+  "spoiler.behindBy": "நீங்கள் சுமார் {seconds} வினாடிகள் பின்தங்கி உள்ளீர்கள்",
+
+  "game.title": "அடுத்த ஓவரை யூகியுங்கள்",
+  "game.pickOutcome": "இந்த ஓவரில் என்ன நடக்கும்?",
+  "game.wicket": "விக்கெட்",
+  "game.boundary": "பவுண்டரி",
+  "game.tenPlus": "10+ ரன்கள்",
+  "game.quietOver": "அமைதியான ஓவர்",
+  "game.streak": "தொடர் வெற்றி",
+  "game.personalBest": "தனிப்பட்ட சிறப்பு",
+
+  "state.empty": "இங்கே இன்னும் எதுவும் இல்லை.",
+  "state.error": "ஏதோ தவறு ஏற்பட்டது.",
+  "state.offline": "நீங்கள் ஆஃப்லைனில் உள்ளீர்கள் — கடைசியாக சேமிக்கப்பட்ட நிலையைக் காட்டுகிறோம்.",
+  "state.retry": "மீண்டும் முயற்சிக்கவும்",
+
+  "theme.light": "லைட்",
+  "theme.dark": "டார்க்",
+};
