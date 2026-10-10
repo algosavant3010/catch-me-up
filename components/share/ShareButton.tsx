@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { usePreferences } from "@/components/providers/preferences-provider";
+import { track } from "@/lib/analytics/track";
 
 export function ShareButton({ ballNumber, title }: { ballNumber: number; title: string }) {
   const { strings } = usePreferences();
@@ -9,6 +10,7 @@ export function ShareButton({ ballNumber, title }: { ballNumber: number; title: 
   const imageUrl = `/api/og?ball=${ballNumber}`;
 
   async function share() {
+    track("share_clicked");
     setStatus("sharing");
     const shareUrl = `${window.location.origin}${window.location.pathname}?ball=${ballNumber}`;
     try {

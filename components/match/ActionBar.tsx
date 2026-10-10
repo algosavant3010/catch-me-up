@@ -6,6 +6,7 @@ import { usePreferences } from "@/components/providers/preferences-provider";
 import { CatchMeUpSheet } from "@/components/recap/CatchMeUpSheet";
 import { SamjhaoSheet } from "@/components/ask/SamjhaoSheet";
 import { AwayBadge } from "@/components/away/AwayBadge";
+import { track } from "@/lib/analytics/track";
 
 export function ActionBar() {
   const { strings } = usePreferences();
@@ -17,6 +18,7 @@ export function ActionBar() {
   const latestBall = balls.length > 0 ? balls[balls.length - 1].n : 0;
 
   const openCatchMeUp = () => {
+    track("recap_requested");
     const from = lastSeenBall + 1;
     setRecapWindow({ from: Math.min(from, latestBall), to: latestBall });
   };
@@ -28,8 +30,10 @@ export function ActionBar() {
 
   const handleAway = () => {
     if (awayFromBall === null) {
+      track("away_started");
       goAway();
     } else {
+      track("away_ended");
       setRecapWindow(comeBack());
     }
   };

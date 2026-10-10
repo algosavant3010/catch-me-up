@@ -6,6 +6,7 @@ import { useMatchRuntime } from "@/lib/match/match-context";
 import { Sheet } from "@/components/ui/Sheet";
 import { usePreferences } from "@/components/providers/preferences-provider";
 import { ShareButton } from "@/components/share/ShareButton";
+import { track } from "@/lib/analytics/track";
 
 export function RefChip({ ballNumber }: { ballNumber: number }) {
   const [open, setOpen] = useState(false);
@@ -13,7 +14,10 @@ export function RefChip({ ballNumber }: { ballNumber: number }) {
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          track("ref_opened");
+          setOpen(true);
+        }}
         className="rounded-full border border-(--color-border) bg-(--color-surface) px-2 py-0.5 text-xs font-medium text-(--color-accent) hover:bg-(--color-surface-2)"
       >
         b{ballNumber}

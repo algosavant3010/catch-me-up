@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import type { LocaleCode } from "@/lib/i18n";
 import type { FanMode } from "@/components/providers/preferences-provider";
+import { track } from "@/lib/analytics/track";
 
 export interface RecapLineData {
   kind: "what_happened" | "where_it_stands" | "why_it_matters";
@@ -93,6 +94,7 @@ function applyChunk(
       case "headline":
         return { ...s, headline: chunk.text };
       case "trust":
+        track(chunk.source === "ai" ? "recap_verified" : "recap_fallback");
         return {
           ...s,
           trust: { source: chunk.source, verified: chunk.verified, total: chunk.total },

@@ -11,6 +11,7 @@ import {
   Noto_Sans_Gurmukhi,
 } from "next/font/google";
 import { PreferencesProvider } from "@/components/providers/preferences-provider";
+import { ServiceWorkerRegistration } from "@/components/pwa/ServiceWorkerRegistration";
 import "./globals.css";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
@@ -61,6 +62,7 @@ export const metadata: Metadata = {
     "Missed a few overs? Catch Me Up gives you a verified, spoiler-safe recap of a simulated cricket match in your language, in 20 seconds.",
   manifest: "/manifest.webmanifest",
   icons: { icon: "/icons/icon.svg" },
+  appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Catch Me Up" },
 };
 
 export const viewport: Viewport = {
@@ -93,6 +95,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
+        <ServiceWorkerRegistration />
         <PreferencesProvider>
           <div id="main-content" className="flex flex-1 flex-col">
             {children}

@@ -5,6 +5,7 @@ import { Sheet } from "@/components/ui/Sheet";
 import { usePreferences } from "@/components/providers/preferences-provider";
 import { useMatchRuntime } from "@/lib/match/match-context";
 import { RefChip } from "@/components/recap/RefChip";
+import { track } from "@/lib/analytics/track";
 
 const SUGGESTED = ["What's the required rate?", "Who's on strike?", "What does powerplay mean?"];
 
@@ -26,6 +27,7 @@ export function SamjhaoSheet({ open, onClose }: { open: boolean; onClose: () => 
 
   async function ask(q: string) {
     if (!q.trim() || loading) return;
+    track("ask_submitted");
     setLoading(true);
     try {
       const res = await fetch("/api/ask", {

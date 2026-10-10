@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useMatchRuntime } from "@/lib/match/match-context";
+import { track } from "@/lib/analytics/track";
 
 const MAX_BYTES = 4 * 1024 * 1024;
 const MAX_DIMENSION = 1024;
@@ -36,6 +37,7 @@ export function SnapTheTV() {
     }
     setStatus("processing");
     setMessage(null);
+    track("vision_sync_attempted");
     try {
       const { base64, mimeType } = await resizeAndCompress(file);
       const res = await fetch("/api/vision-sync", {
@@ -46,6 +48,7 @@ export function SnapTheTV() {
       const data = await res.json();
       if (data.readable && data.matchedBallNumber) {
         jumpTo(data.matchedBallNumber);
+        track("vision_sync_succeeded");
         setStatus("success");
         setMessage(`Synced to ball ${data.matchedBallNumber}.`);
       } else {

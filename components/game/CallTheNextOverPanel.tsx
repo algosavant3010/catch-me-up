@@ -11,6 +11,7 @@ import {
   type PredictionOutcome,
 } from "@/lib/game/scoring";
 import { createPersistentStore } from "@/lib/utils/persistent-store";
+import { track } from "@/lib/analytics/track";
 
 interface GameStore extends Record<string, unknown> {
   game: PredictionGameState;
@@ -75,6 +76,7 @@ export function CallTheNextOverPanel() {
   }, [overSummaries]);
 
   function choose(outcome: PredictionOutcome) {
+    track("prediction_made");
     setPick(outcome);
     setPredictedOver(nextOverToPredict);
   }

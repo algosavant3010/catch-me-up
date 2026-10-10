@@ -6,6 +6,7 @@ import { usePreferences } from "@/components/providers/preferences-provider";
 import { LOCALES } from "@/lib/i18n";
 import type { FanMode } from "@/components/providers/preferences-provider";
 import { alertsStore } from "@/lib/alerts/alerts-store";
+import { analyticsOptOutStore } from "@/lib/analytics/track";
 import { SpoilerShieldPanel } from "@/components/spoiler/SpoilerShieldPanel";
 
 const MODES: FanMode[] = ["beginner", "pro", "glance"];
@@ -16,6 +17,11 @@ export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () =>
     alertsStore.subscribe,
     alertsStore.getSnapshot,
     alertsStore.getServerSnapshot,
+  );
+  const analyticsPrefs = useSyncExternalStore(
+    analyticsOptOutStore.subscribe,
+    analyticsOptOutStore.getSnapshot,
+    analyticsOptOutStore.getServerSnapshot,
   );
 
   async function toggleNotifications() {
@@ -103,6 +109,15 @@ export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () =>
         </div>
 
         <SpoilerShieldPanel />
+
+        <label className="flex items-center justify-between py-1">
+          <span>Share anonymous usage counts</span>
+          <input
+            type="checkbox"
+            checked={!analyticsPrefs.optedOut}
+            onChange={(e) => analyticsOptOutStore.set({ optedOut: !e.target.checked })}
+          />
+        </label>
 
         <p className="text-xs text-(--color-text-muted)">{strings["app.privacyNote"]}</p>
       </div>

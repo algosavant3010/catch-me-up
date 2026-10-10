@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createPersistentStore } from "@/lib/utils/persistent-store";
+import { track } from "@/lib/analytics/track";
 import { gameStore } from "./CallTheNextOverPanel";
 
 interface RoomStore extends Record<string, unknown> {
@@ -58,6 +59,7 @@ export function RoomPanel() {
     });
     const data = await res.json();
     if (!res.ok) return setError(data.error ?? "Could not create room.");
+    track("room_created");
     roomStore.set({ nickname, code: data.code });
     setRoom({ nickname, code: data.code });
     setLeaderboard(data.leaderboard);
@@ -74,6 +76,7 @@ export function RoomPanel() {
     });
     const data = await res.json();
     if (!res.ok) return setError(data.error ?? "Could not join room.");
+    track("room_joined");
     roomStore.set({ nickname, code });
     setRoom({ nickname, code });
     setLeaderboard(data.leaderboard);
