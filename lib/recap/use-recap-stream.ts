@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import type { LocaleCode } from "@/lib/i18n";
 import type { FanMode } from "@/components/providers/preferences-provider";
 import { track } from "@/lib/analytics/track";
@@ -35,9 +35,16 @@ const initialState: RecapStreamState = {
 
 export function useRecapStream() {
   const [state, setState] = useState<RecapStreamState>(initialState);
+  // Guards against a superseded request (e.g. React Strict Mode's
+  // double-invoked effects in dev, or a fast re-open) ever writing its
+  // chunks into state after a newer request has started.
+  const generationRef = useRef(0);
 
   const start = useCallback(
     async (args: { from: number; to: number; locale: LocaleCode; mode: FanMode }) => {
+      const myGeneration = ++generationRef.current;
+      const isCurrent = () => generationRef.current === myGeneration;
+
       setState({ ...initialState, status: "loading" });
       try {
         const res = await fetch("/api/recap", {
@@ -45,8 +52,10 @@ export function useRecapStream() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(args),
         });
+        if (!isCurrent()) return;
         if (!res.ok || !res.body) {
           const body = await res.json().catch(() => ({}));
+          if (!isCurrent()) return;
           setState((s) => ({
             ...s,
             status: "error",
@@ -62,6 +71,10 @@ export function useRecapStream() {
 
         for (;;) {
           const { done, value } = await reader.read();
+          if (!isCurrent()) {
+            reader.cancel();
+            return;
+          }
           if (done) break;
           buffer += decoder.decode(value, { stream: true });
           const parts = buffer.split("\n");
@@ -72,15 +85,19 @@ export function useRecapStream() {
             applyChunk(chunk, setState);
           }
         }
-        setState((s) => (s.status === "error" ? s : { ...s, status: "done" }));
+        if (isCurrent()) setState((s) => (s.status === "error" ? s : { ...s, status: "done" }));
       } catch {
-        setState((s) => ({ ...s, status: "error", errorMessage: "Could not reach the server." }));
+        if (isCurrent())
+          setState((s) => ({ ...s, status: "error", errorMessage: "Could not reach the server." }));
       }
     },
     [],
   );
 
-  const reset = useCallback(() => setState(initialState), []);
+  const reset = useCallback(() => {
+    generationRef.current += 1; // invalidates any in-flight request
+    setState(initialState);
+  }, []);
 
   return { ...state, start, reset };
 }
