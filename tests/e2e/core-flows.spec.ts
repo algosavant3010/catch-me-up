@@ -42,9 +42,10 @@ test.describe("Core fan flows", () => {
     const chip = dialog.getByRole("button", { name: /^b\d+$/ }).first();
     if (await chip.count()) {
       await chip.click();
-      const proof = page.getByRole("dialog").filter({ hasText: "What actually happened" });
+      const proof = page.getByRole("dialog", { name: "What actually happened", exact: true });
       await expect(proof).toBeVisible();
-      await expect(proof.getByText(/Score after|Bowler/)).toBeVisible();
+      await expect(proof.getByText("Score after", { exact: true })).toBeVisible();
+      await expect(proof.getByText("Bowler", { exact: true })).toBeVisible();
     }
   });
 

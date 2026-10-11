@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Users } from "lucide-react";
 import { createPersistentStore } from "@/lib/utils/persistent-store";
 import { track } from "@/lib/analytics/track";
 import { gameStore } from "./CallTheNextOverPanel";
@@ -27,6 +28,19 @@ export function RoomPanel() {
   const [joinCodeInput, setJoinCodeInput] = useState("");
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
+
+  async function submitRoom(action: () => Promise<void>) {
+    if (pending) return;
+    setPending(true);
+    try {
+      await action();
+    } catch {
+      setError("Could not reach the room. Please try again.");
+    } finally {
+      setPending(false);
+    }
+  }
 
   useEffect(() => {
     if (!room.code) return;
@@ -83,55 +97,84 @@ export function RoomPanel() {
   }
 
   return (
-    <section className="rounded-(--radius-lg) border border-(--color-border) bg-(--color-surface) p-4">
-      <h3 className="mb-2 font-semibold">Friends room</h3>
+    <section className="feature-panel">
+      <h3 className="section-heading">
+        <Users aria-hidden="true" />
+        Friends room
+      </h3>
       {!room.code ? (
-        <div className="flex flex-col gap-2 text-sm">
-          <input
-            value={nicknameInput}
-            onChange={(e) => setNicknameInput(e.target.value)}
-            placeholder="Your nickname"
-            maxLength={20}
-            className="rounded-(--radius-md) border border-(--color-border) bg-(--color-bg) px-3 py-2"
-          />
+        <div className="flex flex-col gap-4 text-sm">
+          <div>
+            <label htmlFor="room-nickname" className="field-label">
+              Your nickname
+            </label>
+            <input
+              id="room-nickname"
+              autoComplete="nickname"
+              value={nicknameInput}
+              onChange={(e) => setNicknameInput(e.target.value)}
+              placeholder="Your nickname"
+              maxLength={20}
+              className="rounded-(--radius-md) border border-(--color-border) bg-(--color-bg) px-3 py-2"
+            />
+          </div>
           <button
-            onClick={createRoom}
-            className="rounded-(--radius-md) bg-(--color-accent) px-3 py-2 font-medium text-white"
+            onClick={() => submitRoom(createRoom)}
+            disabled={pending}
+            className="button-primary"
           >
             Create a room
           </button>
-          <div className="flex gap-2">
-            <input
-              value={joinCodeInput}
-              onChange={(e) => setJoinCodeInput(e.target.value)}
-              placeholder="6-character code"
-              maxLength={6}
-              className="flex-1 rounded-(--radius-md) border border-(--color-border) bg-(--color-bg) px-3 py-2 uppercase"
-            />
-            <button
-              onClick={joinRoom}
-              className="rounded-(--radius-md) border border-(--color-border) px-3 py-2 font-medium"
-            >
-              Join
-            </button>
+          <div className="border-t border-(--color-border) pt-4">
+            <label htmlFor="room-code" className="field-label">
+              Room code
+            </label>
+            <div className="flex gap-2">
+              <input
+                id="room-code"
+                autoComplete="off"
+                spellCheck={false}
+                value={joinCodeInput}
+                onChange={(e) => setJoinCodeInput(e.target.value)}
+                placeholder="6-character code"
+                maxLength={6}
+                className="flex-1 rounded-(--radius-md) border border-(--color-border) bg-(--color-bg) px-3 py-2 uppercase"
+              />
+              <button
+                onClick={() => submitRoom(joinRoom)}
+                disabled={pending}
+                className="button-secondary shrink-0"
+              >
+                Join
+              </button>
+            </div>
           </div>
-          {error && <p className="text-xs text-(--color-danger)">{error}</p>}
+          {pending && (
+            <p role="status" className="text-sm text-(--color-text-muted)">
+              Connecting to room...
+            </p>
+          )}
+          {error && (
+            <p role="alert" className="text-sm text-(--color-danger)">
+              {error}
+            </p>
+          )}
         </div>
       ) : (
         <div className="text-sm">
           <p className="mb-2">
-            Room code: <strong className="tracking-widest">{room.code}</strong> (expires in 24h)
+            Room code: <strong className="font-mono text-lg">{room.code}</strong> (expires in 24h)
           </p>
           <ol className="flex flex-col gap-1">
             {leaderboard.map((m, i) => (
               <li
                 key={m.nickname}
-                className="flex justify-between rounded-(--radius-sm) bg-(--color-surface-2) px-2 py-1"
+                className="flex justify-between gap-4 border-b border-(--color-border) py-3"
               >
                 <span>
                   {i + 1}. {m.nickname}
                 </span>
-                <span className="font-semibold">{m.totalPoints}</span>
+                <span className="font-semibold tabular-nums">{m.totalPoints}</span>
               </li>
             ))}
           </ol>

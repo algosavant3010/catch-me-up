@@ -58,7 +58,8 @@ function renderCard({ title, subtitle }: { title: string; subtitle: string }) {
         justifyContent: "center",
         alignItems: "flex-start",
         padding: "80px",
-        background: "linear-gradient(135deg, #3c2a8e 0%, #7a2fb0 55%, #e23fae 100%)",
+        background: "#101112",
+        borderLeft: "16px solid #ce263e",
         color: "white",
         fontFamily: "sans-serif",
       }}

@@ -33,10 +33,19 @@ export function CatchMeUpSheet({
   return (
     <Sheet open={open} onClose={onClose} title={strings["recap.title"]}>
       {(status === "idle" || status === "loading") && (
-        <p className="text-sm text-(--color-text-muted)">{strings["recap.loading"]}</p>
+        <div role="status" className="space-y-4">
+          <p className="text-sm text-(--color-text-muted)">{strings["recap.loading"]}</p>
+          <div aria-hidden="true" className="animate-pulse space-y-3">
+            <div className="h-6 w-3/4 rounded bg-(--color-surface-2)" />
+            <div className="h-16 rounded bg-(--color-surface-2)" />
+            <div className="h-16 rounded bg-(--color-surface-2)" />
+          </div>
+        </div>
       )}
       {status === "error" && (
-        <p className="text-sm text-(--color-danger)">{errorMessage ?? strings["state.error"]}</p>
+        <p role="alert" className="text-sm text-(--color-danger)">
+          {errorMessage ?? strings["state.error"]}
+        </p>
       )}
 
       {(status === "streaming" || status === "done") && (
@@ -47,7 +56,7 @@ export function CatchMeUpSheet({
           )}
           <div className="flex flex-col gap-3">
             {lines.map((line, i) => (
-              <div key={i} className="rounded-(--radius-md) bg-(--color-surface-2) p-3">
+              <div key={i} className="border-l-2 border-(--color-border) py-2 pl-4">
                 <p className="text-sm leading-relaxed">{line.text}</p>
                 {line.refs.length > 0 && (
                   <div className="mt-2 flex flex-wrap gap-1.5">

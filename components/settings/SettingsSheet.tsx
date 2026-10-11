@@ -36,15 +36,15 @@ export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () =>
   return (
     <Sheet open={open} onClose={onClose} title={strings["nav.settings"]}>
       <div className="flex flex-col gap-5 text-sm">
-        <div>
+        <div className="settings-section">
           <p className="mb-2 font-medium">{strings["onboarding.step1Title"]}</p>
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
             {LOCALES.map((l) => (
               <button
                 key={l.code}
                 onClick={() => setLocale(l.code)}
                 aria-pressed={locale === l.code}
-                className={`rounded-full border border-(--color-border) px-3 py-1 ${locale === l.code ? "bg-(--color-accent) text-white" : "bg-(--color-surface-2)"}`}
+                className={`rounded-(--radius-md) border border-(--color-border) px-3 py-2 text-sm ${locale === l.code ? "bg-(--color-accent) text-white" : "bg-(--color-surface-2) hover:border-(--color-text-muted)"}`}
               >
                 {l.nativeLabel}
               </button>
@@ -52,7 +52,7 @@ export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () =>
           </div>
         </div>
 
-        <div>
+        <div className="settings-section">
           <p className="mb-2 font-medium">{strings["onboarding.step2Title"]}</p>
           <div className="flex gap-2">
             {MODES.map((m) => (
@@ -68,7 +68,7 @@ export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () =>
           </div>
         </div>
 
-        <div>
+        <div className="settings-section">
           <p className="mb-2 font-medium">Theme</p>
           <div className="flex gap-2">
             <button
@@ -88,9 +88,9 @@ export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () =>
           </div>
         </div>
 
-        <div>
+        <div className="settings-section">
           <p className="mb-2 font-medium">Alerts</p>
-          <label className="flex items-center justify-between py-1">
+          <label className="setting-row">
             <span>Browser notifications</span>
             <input
               type="checkbox"
@@ -98,7 +98,7 @@ export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () =>
               onChange={toggleNotifications}
             />
           </label>
-          <label className="flex items-center justify-between py-1">
+          <label className="setting-row">
             <span>Vibration</span>
             <input
               type="checkbox"
@@ -110,7 +110,7 @@ export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () =>
 
         <SpoilerShieldPanel />
 
-        <label className="flex items-center justify-between py-1">
+        <label className="setting-row">
           <span>Share anonymous usage counts</span>
           <input
             type="checkbox"

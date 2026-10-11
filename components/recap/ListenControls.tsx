@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Headphones, Pause, Play, Square } from "lucide-react";
 import { usePreferences } from "@/components/providers/preferences-provider";
 import { getLocaleMeta } from "@/lib/i18n";
 
@@ -44,40 +45,28 @@ export function ListenControls({ text }: { text: string }) {
   };
 
   return (
-    <div className="flex items-center gap-2 text-xs">
+    <div className="flex flex-wrap items-center gap-2 border-t border-(--color-border) pt-4 text-xs">
       {state === "idle" && (
-        <button
-          type="button"
-          onClick={play}
-          className="rounded-full bg-(--color-accent) px-3 py-1 font-medium text-white"
-        >
+        <button type="button" onClick={play} className="button-primary">
+          <Headphones size={16} aria-hidden="true" />
           {strings["listen.play"]}
         </button>
       )}
       {state === "playing" && (
-        <button
-          type="button"
-          onClick={pause}
-          className="rounded-full border border-(--color-border) px-3 py-1 font-medium"
-        >
+        <button type="button" onClick={pause} className="button-secondary">
+          <Pause size={16} aria-hidden="true" />
           {strings["listen.pause"]}
         </button>
       )}
       {state === "paused" && (
-        <button
-          type="button"
-          onClick={resume}
-          className="rounded-full border border-(--color-border) px-3 py-1 font-medium"
-        >
+        <button type="button" onClick={resume} className="button-secondary">
+          <Play size={16} aria-hidden="true" />
           {strings["listen.play"]}
         </button>
       )}
       {state !== "idle" && (
-        <button
-          type="button"
-          onClick={stop}
-          className="rounded-full border border-(--color-border) px-3 py-1 font-medium"
-        >
+        <button type="button" onClick={stop} className="button-secondary">
+          <Square size={16} aria-hidden="true" />
           {strings["listen.stop"]}
         </button>
       )}

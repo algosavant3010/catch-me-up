@@ -14,6 +14,18 @@ formula and its limits), `docs/PROMPTS.md` for the Gemini prompts,
 `docs/EVAL.md` for the recap evaluation results, and `docs/DEMO.md` for a
 5-minute walkthrough script.
 
+## Frontend design
+
+The match centre uses a neutral charcoal/off-white palette with racing-red
+actions, Barlow typography, and a responsive two-column desktop layout.
+Both saved themes and all ten language choices remain available. Shared
+controls use 44px minimum targets, visible focus, reduced-motion support,
+and consistent form labels. Sheets contain keyboard focus, keep their
+headers visible, and restore focus on close.
+
+See [the frontend audit and design system](docs/FRONTEND.md) for the route
+inventory, token conventions, asset source, and verification scope.
+
 ## Quickstart
 
 ```bash

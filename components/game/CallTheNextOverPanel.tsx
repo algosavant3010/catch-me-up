@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Crosshair } from "lucide-react";
 import { useMatchState } from "@/lib/match/use-match-state";
 import { usePreferences } from "@/components/providers/preferences-provider";
 import {
@@ -82,8 +83,11 @@ export function CallTheNextOverPanel() {
   }
 
   return (
-    <section className="rounded-(--radius-lg) border border-(--color-border) bg-(--color-surface) p-4">
-      <h3 className="mb-1 font-semibold">{strings["game.title"]}</h3>
+    <section className="feature-panel">
+      <h3 className="section-heading">
+        <Crosshair aria-hidden="true" />
+        {strings["game.title"]}
+      </h3>
       <p className="mb-3 text-xs text-(--color-text-muted)">
         Free to play — no money, no prizes, just bragging rights.
       </p>
@@ -93,7 +97,10 @@ export function CallTheNextOverPanel() {
           The match is over — final score: {state.totalPoints} points.
         </p>
       ) : predictedOver !== null ? (
-        <p className="text-sm">
+        <p
+          className="border-l-2 border-(--color-success) bg-(--color-surface-2) p-4 text-sm"
+          role="status"
+        >
           Locked in <strong>{pick}</strong> for over {predictedOver}. Waiting for it to finish…
         </p>
       ) : (
@@ -106,7 +113,7 @@ export function CallTheNextOverPanel() {
               <button
                 key={o.key}
                 onClick={() => choose(o.key)}
-                className="rounded-(--radius-md) bg-(--color-surface-2) px-3 py-2 text-sm font-medium hover:bg-(--color-accent) hover:text-white"
+                className="button-secondary justify-start hover:border-(--color-accent)"
               >
                 {strings[o.labelKey]}
               </button>
@@ -121,7 +128,7 @@ export function CallTheNextOverPanel() {
         </p>
       )}
 
-      <div className="mt-3 flex items-center justify-between text-xs text-(--color-text-muted)">
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-(--color-border) pt-3 text-xs text-(--color-text-muted) tabular-nums">
         <span>
           {strings["game.streak"]}: {state.streak}
         </span>

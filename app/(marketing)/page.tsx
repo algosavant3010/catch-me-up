@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+import { ArrowRight, ArrowUpRight, Zap } from "lucide-react";
 import matchData from "@/data/match.json";
 import type { MatchMeta } from "@/lib/match/types";
 
@@ -7,50 +9,76 @@ const meta = matchData.meta as MatchMeta;
 export default function MarketingPage() {
   return (
     <main className="flex flex-1 flex-col">
-      <section
-        className="flex flex-col items-center gap-6 px-6 py-20 text-center text-white sm:py-28"
-        style={{ background: "var(--gradient-hero)" }}
-      >
-        <span className="rounded-full bg-black/20 px-4 py-1 text-xs font-medium tracking-wide uppercase">
-          Simulated match — fictional teams, for demo purposes only
+      <header className="page-shell flex items-center justify-between gap-4 py-5">
+        <span className="flex items-center gap-2 text-lg font-bold">
+          <Zap className="text-(--color-accent-2)" aria-hidden="true" /> CATCH ME UP
         </span>
-        <h1 className="max-w-2xl text-4xl font-bold text-balance sm:text-5xl">Catch Me Up</h1>
-        <p className="max-w-xl text-lg text-white/90">
-          Missed a few overs? Get back into the match in 20 seconds — in your language, without
-          spoilers, and every number checked before you see it.
-        </p>
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href={`/match/${meta.id}`}
-            className="rounded-full bg-white px-6 py-3 font-semibold text-[var(--color-accent-2)] shadow-md transition hover:scale-[1.02]"
-          >
-            Try the demo
-          </Link>
-          <Link
-            href={`/match/${meta.id}?join=late`}
-            className="rounded-full border border-white/40 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
-          >
-            Join late instead
-          </Link>
+        <Link href={`/match/${meta.id}`} className="flex items-center gap-2 text-sm font-semibold">
+          Match centre <ArrowUpRight size={18} aria-hidden="true" />
+        </Link>
+      </header>
+      <section className="landing-hero">
+        <Image
+          src="/cricket-ground.jpg"
+          alt="A red cricket ball on the outfield"
+          fill
+          priority
+          sizes="100vw"
+          className="-z-10 object-cover object-[65%_60%]"
+        />
+        <div className="page-shell py-10 sm:py-14">
+          <p className="mb-5 flex items-center gap-2 text-xs font-semibold uppercase">
+            <span className="h-0.5 w-8 bg-red-500" /> Every over matters
+          </p>
+          <h1 className="landing-title max-w-xl">Catch Me Up</h1>
+          <p className="mt-5 max-w-sm text-lg text-white/90">
+            Back in the game. Not behind the score.
+          </p>
+          <div className="mt-7 flex flex-wrap items-center gap-3">
+            <Link href={`/match/${meta.id}`} className="button-primary">
+              Try the demo <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+            <Link
+              href={`/match/${meta.id}?join=late`}
+              className="inline-flex min-h-11 items-center rounded-md border border-white/60 bg-black/30 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-black/50"
+            >
+              Join late instead
+            </Link>
+          </div>
+          <p className="mt-6 max-w-sm text-xs text-white/80">
+            Simulated match. Fictional teams. Real cricket energy.
+          </p>
         </div>
       </section>
-
-      <section className="mx-auto grid w-full max-w-4xl gap-6 px-6 py-16 sm:grid-cols-3">
+      <section className="page-shell flex flex-wrap items-center justify-between gap-5 border-b border-(--color-border) py-7">
+        <div>
+          <p className="eyebrow mb-1">Featured match / T20</p>
+          <h2 className="text-xl font-bold">
+            {meta.battingTeam.name}{" "}
+            <span className="font-normal text-(--color-text-muted)">vs</span>{" "}
+            {meta.bowlingTeam.name}
+          </h2>
+        </div>
+        <Link href={`/match/${meta.id}?join=late`} className="button-secondary">
+          Enter the chase <ArrowRight size={16} aria-hidden="true" />
+        </Link>
+      </section>
+      <section className="page-shell grid gap-8 py-10 sm:grid-cols-3">
         <Feature
-          title="Verifiable by design"
-          body="Every fact the AI states about a ball carries a reference. We validate every number before it reaches you — unverifiable output never ships."
+          title="01 / The turning point"
+          body="A wicket. A boundary. An over that changes everything."
         />
         <Feature
-          title="Works with no AI"
-          body="No API key, offline, or rate limited? The app still works. Every AI feature has a deterministic, non-AI fallback."
+          title="02 / The final chase"
+          body="Twenty overs. One target. Right down to the last ball."
         />
         <Feature
-          title="Built for real fans"
-          body="Hindi, Hinglish, Tamil, Telugu, Marathi, Bengali, Kannada, Gujarati and Punjabi — on patchy data, on a lagging stream."
+          title="03 / The fan side"
+          body="Big calls, close finishes, and bragging rights among friends."
         />
       </section>
 
-      <footer className="mx-auto w-full max-w-4xl px-6 pb-16 text-sm text-(--color-text-muted)">
+      <footer className="page-shell border-t border-(--color-border) py-6 text-xs text-(--color-text-muted)">
         <p>
           No accounts. No stored questions or images. Anonymous usage counts only. This is a
           simulated match with fictional teams and players — it is not affiliated with Dream11, the
@@ -63,7 +91,7 @@ export default function MarketingPage() {
 
 function Feature({ title, body }: { title: string; body: string }) {
   return (
-    <div className="rounded-(--radius-lg) border border-(--color-border) bg-(--color-surface) p-6 shadow-sm">
+    <div>
       <h2 className="mb-2 font-semibold">{title}</h2>
       <p className="text-sm text-(--color-text-muted)">{body}</p>
     </div>

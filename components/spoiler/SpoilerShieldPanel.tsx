@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ShieldCheck } from "lucide-react";
 import { useMatchRuntime } from "@/lib/match/match-context";
 import { spoilerStore } from "@/lib/spoiler/delay-store";
 import { computeOffsetSeconds, type CalibrationTap } from "@/lib/spoiler/calibration";
@@ -38,8 +39,11 @@ export function SpoilerShieldPanel() {
   };
 
   return (
-    <section className="rounded-(--radius-lg) border border-(--color-border) bg-(--color-surface) p-4">
-      <h3 className="font-semibold">{strings["spoiler.title"]}</h3>
+    <section className="settings-section">
+      <h3 className="section-heading">
+        <ShieldCheck aria-hidden="true" />
+        {strings["spoiler.title"]}
+      </h3>
       <p className="mt-1 text-sm text-(--color-text-muted)">
         {delaySeconds > 0
           ? t(strings, "spoiler.behindBy", { seconds: delaySeconds })
@@ -50,7 +54,7 @@ export function SpoilerShieldPanel() {
         <button
           type="button"
           onClick={() => setCalibrating(true)}
-          className="mt-3 rounded-full bg-(--color-accent) px-4 py-2 text-sm font-medium text-white"
+          className="button-secondary mt-3 w-full"
         >
           {strings["spoiler.calibrate"]}
         </button>
@@ -64,7 +68,7 @@ export function SpoilerShieldPanel() {
             type="button"
             onClick={recordTap}
             disabled={pendingEmittedAt === null}
-            className="rounded-full bg-(--color-accent) px-4 py-3 text-base font-semibold text-white disabled:opacity-40"
+            className="button-primary"
           >
             {pendingEmittedAt === null ? "Waiting for the next moment…" : "Tap now!"}
           </button>

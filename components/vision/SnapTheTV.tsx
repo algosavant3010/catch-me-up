@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { ScanLine, Upload, LoaderCircle } from "lucide-react";
 import { useMatchRuntime } from "@/lib/match/match-context";
 import { track } from "@/lib/analytics/track";
 
@@ -62,8 +63,11 @@ export function SnapTheTV() {
   }
 
   return (
-    <section className="rounded-(--radius-lg) border border-(--color-border) bg-(--color-surface) p-4">
-      <h3 className="mb-1 font-semibold">Snap the TV</h3>
+    <section className="feature-panel">
+      <h3 className="section-heading">
+        <ScanLine aria-hidden="true" />
+        Snap the TV
+      </h3>
       <p className="mb-3 text-xs text-(--color-text-muted)">
         Photograph your TV or another app&apos;s scoreboard and we&apos;ll sync this view to match.
         Processed in memory only — never stored.
@@ -73,6 +77,7 @@ export function SnapTheTV() {
         type="file"
         accept="image/png,image/jpeg,image/webp"
         capture="environment"
+        aria-label="Scoreboard photograph"
         className="hidden"
         onChange={(e) => {
           const file = e.target.files?.[0];
@@ -84,12 +89,19 @@ export function SnapTheTV() {
         type="button"
         onClick={() => inputRef.current?.click()}
         disabled={status === "processing"}
-        className="rounded-(--radius-md) bg-(--color-accent) px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+        className="button-secondary min-h-24 w-full flex-col border-dashed"
       >
+        {status === "processing" ? (
+          <LoaderCircle className="animate-spin" size={22} aria-hidden="true" />
+        ) : (
+          <Upload size={22} aria-hidden="true" />
+        )}
         {status === "processing" ? "Reading…" : "Upload or photograph"}
       </button>
+      <p className="mt-2 text-xs text-(--color-text-muted)">JPG, PNG or WebP / up to 4 MB</p>
       {message && (
         <p
+          role="status"
           className={`mt-2 text-xs ${status === "retry" ? "text-(--color-danger)" : "text-(--color-success)"}`}
         >
           {message}

@@ -18,7 +18,8 @@ export function RefChip({ ballNumber }: { ballNumber: number }) {
           track("ref_opened");
           setOpen(true);
         }}
-        className="rounded-full border border-(--color-border) bg-(--color-surface) px-2 py-0.5 text-xs font-medium text-(--color-accent) hover:bg-(--color-surface-2)"
+        title={`View proof for ball ${ballNumber}`}
+        className="rounded-(--radius-sm) border border-(--color-border) bg-(--color-surface) px-3 py-1 font-mono text-xs font-medium text-(--color-accent-2) hover:bg-(--color-surface-2)"
       >
         b{ballNumber}
       </button>
@@ -78,7 +79,7 @@ function outcomeOf(ball: BallProof["ball"]): string {
 
 function Row({ label, value }: { label: string; value: string }) {
   return (
-    <div>
+    <div className="min-w-0 border-b border-(--color-border) py-3">
       <dt className="text-xs text-(--color-text-muted)">{label}</dt>
       <dd className="font-medium">{value}</dd>
     </div>

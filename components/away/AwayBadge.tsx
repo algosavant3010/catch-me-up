@@ -24,7 +24,7 @@ export function AwayBadge() {
     <div
       role="status"
       aria-live="polite"
-      className="rounded-(--radius-md) border border-(--color-accent) bg-(--color-surface-2) px-3 py-2 text-xs"
+      className="my-3 border-l-2 border-(--color-accent) bg-(--color-surface-2) px-4 py-3 text-sm"
     >
       {t(strings, "away.missed", { balls: ballsMissed, runs: runsMissed, wickets: wicketsMissed })}
     </div>

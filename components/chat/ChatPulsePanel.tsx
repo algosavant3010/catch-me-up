@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { Activity } from "lucide-react";
 import { useMatchState } from "@/lib/match/use-match-state";
 import { usePreferences } from "@/components/providers/preferences-provider";
 import { generateChatForBall, type ChatMessage } from "@/lib/chat/generator";
@@ -53,22 +54,25 @@ export function ChatPulsePanel() {
   }, [messages, locale]);
 
   return (
-    <section className="rounded-(--radius-lg) border border-(--color-border) bg-(--color-surface) p-4">
+    <section className="feature-panel">
       <div className="mb-2 flex items-center justify-between">
-        <h3 className="font-semibold">Chat Pulse</h3>
-        <span className="rounded-full bg-(--color-surface-2) px-2 py-0.5 text-[10px] text-(--color-text-muted)">
-          Simulated chat
-        </span>
+        <h3 className="section-heading mb-0">
+          <Activity aria-hidden="true" />
+          Chat Pulse
+        </h3>
+        <span className="eyebrow">Simulated chat</span>
       </div>
 
       {!pulse && loading && <SkeletonPulse />}
       {!pulse && !loading && (
-        <p className="text-sm text-(--color-text-muted)">Waiting for chat to build up…</p>
+        <p className="flex min-h-24 items-center border-l-2 border-(--color-border) pl-4 text-sm text-(--color-text-muted)">
+          Waiting for chat to build up…
+        </p>
       )}
       {pulse && (
         <div className="flex flex-col gap-2 text-sm">
           <div className="flex items-center gap-2">
-            <span className="rounded-full bg-(--color-accent) px-2 py-0.5 text-xs text-white capitalize">
+            <span className="rounded-sm bg-(--color-accent) px-2 py-1 text-xs text-white capitalize">
               {pulse.mood}
             </span>
             <span className="text-xs text-(--color-text-muted)">Hype {pulse.hypeScore}/100</span>

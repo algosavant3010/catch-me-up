@@ -21,7 +21,7 @@ export function TensionMeter() {
   const label = tensionLabel(state.tension);
 
   return (
-    <div className="rounded-(--radius-lg) border border-(--color-border) bg-(--color-surface) p-3">
+    <div className="border-y border-(--color-border) py-4">
       <div className="flex items-center justify-between text-sm">
         <span className="text-(--color-text-muted)">Tension</span>
         <span className="font-semibold">{strings[LABEL_KEY[label]]}</span>
@@ -32,10 +32,10 @@ export function TensionMeter() {
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={state.tension}
-        className="mt-2 h-2 w-full overflow-hidden rounded-full bg-(--color-surface-2)"
+        className="mt-3 h-1.5 w-full overflow-hidden bg-(--color-surface-2)"
       >
         <div
-          className="h-full rounded-full bg-(--color-accent) transition-[width] duration-500 ease-out motion-reduce:transition-none"
+          className="h-full bg-(--color-accent) transition-[width] duration-500 ease-out motion-reduce:transition-none"
           style={{ width: `${state.tension}%` }}
         />
       </div>

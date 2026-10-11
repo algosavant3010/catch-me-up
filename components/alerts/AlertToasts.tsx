@@ -48,12 +48,12 @@ export function AlertToasts() {
   return (
     <div
       aria-live="assertive"
-      className="pointer-events-none fixed inset-x-0 top-2 z-50 flex flex-col items-center gap-2"
+      className="pointer-events-none fixed inset-x-3 top-3 z-40 flex flex-col items-center gap-2 sm:inset-x-auto sm:right-5 sm:items-end"
     >
-      {toasts.map((toast) => (
+      {toasts.slice(-2).map((toast) => (
         <div
           key={toast.id}
-          className="pointer-events-auto max-w-sm rounded-full border border-(--color-border) bg-(--color-surface) px-4 py-2 text-sm shadow-md"
+          className="pointer-events-auto w-full max-w-sm rounded-(--radius-md) border border-l-2 border-(--color-border) border-l-(--color-accent) bg-(--color-surface) px-4 py-3 text-sm shadow-md"
         >
           {toast.description}
         </div>

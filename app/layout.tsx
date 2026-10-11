@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import {
-  Inter,
+  Barlow,
+  Barlow_Condensed,
   Geist_Mono,
   Noto_Sans_Devanagari,
   Noto_Sans_Tamil,
@@ -14,43 +15,61 @@ import { PreferencesProvider } from "@/components/providers/preferences-provider
 import { ServiceWorkerRegistration } from "@/components/pwa/ServiceWorkerRegistration";
 import "./globals.css";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
+const barlow = Barlow({
+  variable: "--font-barlow",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+const display = Barlow_Condensed({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  display: "swap",
+});
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
 });
 const notoDevanagari = Noto_Sans_Devanagari({
+  preload: false,
   variable: "--font-noto-devanagari",
   subsets: ["devanagari"],
   display: "swap",
 });
 const notoTamil = Noto_Sans_Tamil({
+  preload: false,
   variable: "--font-noto-tamil",
   subsets: ["tamil"],
   display: "swap",
 });
 const notoTelugu = Noto_Sans_Telugu({
+  preload: false,
   variable: "--font-noto-telugu",
   subsets: ["telugu"],
   display: "swap",
 });
 const notoBengali = Noto_Sans_Bengali({
+  preload: false,
   variable: "--font-noto-bengali",
   subsets: ["bengali"],
   display: "swap",
 });
 const notoKannada = Noto_Sans_Kannada({
+  preload: false,
   variable: "--font-noto-kannada",
   subsets: ["kannada"],
   display: "swap",
 });
 const notoGujarati = Noto_Sans_Gujarati({
+  preload: false,
   variable: "--font-noto-gujarati",
   subsets: ["gujarati"],
   display: "swap",
 });
 const notoGurmukhi = Noto_Sans_Gurmukhi({
+  preload: false,
   variable: "--font-noto-gurmukhi",
   subsets: ["gurmukhi"],
   display: "swap",
@@ -68,11 +87,12 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#1a1733",
+  themeColor: "#101112",
 };
 
 const fontVariables = [
-  inter.variable,
+  barlow.variable,
+  display.variable,
   geistMono.variable,
   notoDevanagari.variable,
   notoTamil.variable,

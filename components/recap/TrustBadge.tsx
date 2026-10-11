@@ -17,8 +17,8 @@ export function TrustBadge({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="rounded-(--radius-md) border border-(--color-border) bg-(--color-surface-2) p-3 text-sm">
-      <div className="flex items-center justify-between gap-2">
+    <div className="border-y border-(--color-border) py-3 text-sm">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="font-medium text-(--color-success)">
           {source === "fallback"
             ? strings["recap.fallbackLabel"]
@@ -28,7 +28,7 @@ export function TrustBadge({
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          className="text-xs font-medium text-(--color-accent) underline underline-offset-2"
+          className="text-xs font-medium text-(--color-accent-2) underline underline-offset-2"
         >
           {strings["recap.whyTrust"]}
         </button>

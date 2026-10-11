@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Check, Share2 } from "lucide-react";
 import { usePreferences } from "@/components/providers/preferences-provider";
 import { track } from "@/lib/analytics/track";
 
@@ -46,9 +47,15 @@ export function ShareButton({ ballNumber, title }: { ballNumber: number; title: 
     <button
       type="button"
       onClick={share}
-      className="rounded-full border border-(--color-border) bg-(--color-surface-2) px-3 py-1.5 text-xs font-medium"
+      disabled={status === "sharing"}
+      className="button-secondary"
     >
-      {status === "done" ? "✓ Shared" : strings["nav.share"]}
+      {status === "done" ? (
+        <Check size={16} aria-hidden="true" />
+      ) : (
+        <Share2 size={16} aria-hidden="true" />
+      )}
+      {status === "done" ? "Shared" : status === "error" ? "Retry share" : strings["nav.share"]}
     </button>
   );
 }

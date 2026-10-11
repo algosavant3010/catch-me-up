@@ -30,7 +30,7 @@ export function WinProbChart() {
 
   if (points.length < 2) {
     return (
-      <div className="flex h-24 items-center justify-center text-xs text-(--color-text-muted)">
+      <div className="flex h-48 items-center justify-center border-b border-dashed border-(--color-border) text-sm text-(--color-text-muted)">
         Win probability chart will appear once the match starts.
       </div>
     );
@@ -42,12 +42,27 @@ export function WinProbChart() {
   const wickets = points.filter((p) => p.wicket);
 
   return (
-    <div className="rounded-(--radius-lg) border border-(--color-border) bg-(--color-surface) p-3">
+    <section aria-label="Win probability" className="min-w-0 pt-2">
+      <div className="mb-6 flex items-start justify-between gap-4">
+        <div>
+          <h2 className="text-lg font-bold">Chase momentum</h2>
+          <p className="text-xs text-(--color-text-muted)">Estimated win probability</p>
+        </div>
+        <span className="text-3xl font-bold tabular-nums">
+          {Math.round(state.winProb * 100)}
+          <span className="text-base text-(--color-text-muted)">%</span>
+        </span>
+      </div>
+      <div className="mb-2 flex justify-between text-xs text-(--color-text-muted)">
+        <span>100%</span>
+        <span>{meta.battingTeam.name}</span>
+      </div>
       <svg
         viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
         role="img"
         aria-label={`Win probability chart, currently ${Math.round(state.winProb * 100)}%`}
-        className="h-24 w-full motion-reduce:[&_*]:transition-none"
+        className="h-36 w-full overflow-visible motion-reduce:[&_*]:transition-none"
+        preserveAspectRatio="none"
       >
         <line
           x1="0"
@@ -60,7 +75,7 @@ export function WinProbChart() {
         <path
           d={path}
           fill="none"
-          stroke="var(--color-accent)"
+          stroke="var(--color-accent-2)"
           strokeWidth="2"
           strokeLinecap="round"
         />
@@ -76,6 +91,13 @@ export function WinProbChart() {
           />
         ))}
       </svg>
-    </div>
+      <div className="mt-3 flex justify-between border-t border-(--color-border) pt-2 text-xs text-(--color-text-muted)">
+        <span>0 overs</span>
+        <span>
+          Wicket markers / <span className="text-(--color-danger)">●</span>
+        </span>
+        <span>{meta.oversLimit} overs</span>
+      </div>
+    </section>
   );
 }
