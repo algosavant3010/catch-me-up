@@ -26,6 +26,13 @@ headers visible, and restore focus on close.
 See [the frontend audit and design system](docs/FRONTEND.md) for the route
 inventory, token conventions, asset source, and verification scope.
 
+## 3 Core Fan-Facing AI Features
+
+1. **Dream11 Fantasy Impact Pulse**: Live fantasy points calculator with breakdown (runs, wickets, maidens, economy, boundary bonus, strike rate), dynamic MVP spotlight, differential picks, and 1-tap WhatsApp squad share.
+2. **Settle The Banter (AI Cricket Arbitrator)**: Instant adjudication of common fan arguments and custom claims with verifiable match telemetry citations, run-out/no-ball rules, DRS telemetry, and confidence grades.
+3. **"What-If" Chase Simulator & Tactical Roadmap**: Interactive run/wicket slider computing mathematical Win Probability Delta ($\Delta$), revised Required Run Rate (RRR), and an AI coaching blueprint for the chasing vs defending side.
+
+
 ## Quickstart
 
 ```bash
@@ -47,7 +54,7 @@ All optional. Copy into `.env.local`:
 GEMINI_API_KEY=
 
 # Model names are config, not code (see lib/ai/config.ts for defaults + why these two were chosen).
-GEMINI_MODEL_QUALITY=gemini-3.6-flash
+GEMINI_MODEL_QUALITY=gemini-3.8-flash
 GEMINI_MODEL_FAST=gemini-3.5-flash-lite
 
 # Enables Upstash Redis for caching/rate-limiting/rooms. Without both, falls back to

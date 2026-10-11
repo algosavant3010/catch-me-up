@@ -87,4 +87,75 @@ export const pa: UiStrings = {
 
   "theme.light": "ਲਾਈਟ",
   "theme.dark": "ਡਾਰਕ",
+
+  // Landing & Marketing
+  "landing.heroBadge": "ਹਰ ਓਵਰ ਅਹਿਮ ਹੈ • ਲਾਈਵ ਕ੍ਰਿਕਟ ਸਾਥੀ",
+  "landing.heroTitle": "ਕੈਚ ਮੀ ਅੱਪ",
+  "landing.heroSubtitle": "ਮੈਚ ਵਿੱਚ ਤੁਰੰਤ ਵਾਪਸ ਆਓ। ਕੋਈ ਸਪੋਇਲਰ ਨਹੀਂ। 100% ਪ੍ਰਮਾਣਿਤ ਮੈਚ ਜਾਣਕਾਰੀ।",
+  "landing.ctaTry": "ਮੈਚ ਸੈਂਟਰ ਸ਼ੁਰੂ ਕਰੋ",
+  "landing.ctaJoinLate": "ਦੇਰ ਨਾਲ ਜੁੜੋ (16ਵਾਂ ਓਵਰ)",
+  "landing.simulatedTag": "ਸਿਮੂਲੇਟਿਡ ਮੈਚ • ਕਾਲਪਨਿਕ ਟੀਮਾਂ • ਅਸਲ ਕ੍ਰਿਕਟ ਰੋਮਾਂਚ",
+  "landing.featuredMatch": "ਵਿਸ਼ੇਸ਼ ਮੈਚ / ਟੀ20",
+  "landing.liveChase": "ਲਾਈਵ ਚੇਜ਼",
+  "landing.enterChase": "ਚੇਜ਼ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ",
+  "landing.matchDescription": "ਟੀਚਾ 136 ਦੌੜਾਂ • ਆਖਰੀ 20 ਓਵਰ • ਲਾਈਵ ਜਿੱਤਣ ਦੀ ਸੰਭਾਵਨਾ ਅਤੇ AI ਸਾਰਾਂਸ਼",
+  "landing.target": "ਟੀਚਾ",
+  "landing.overs": "ਓਵਰ",
+  "landing.format": "ਫਾਰਮੈਟ",
+  "landing.featureHeader": "ਅਸਲ ਪ੍ਰਸ਼ੰਸਕਾਂ ਦੇ ਅਨੁਭਵ ਲਈ ਬਣਾਇਆ ਗਿਆ",
+  "landing.featureSubheader": "ਕੋਈ ਬੋਰਿੰਗ ਅੰਕੜੇ ਨਹੀਂ। ਦੋਸਤਾਂ ਨਾਲ ਮੈਚ ਵੇਖਣ ਸਮੇਂ ਕੰਮ ਆਉਣ ਵਾਲੀਆਂ ਅਸਲ AI ਸ਼ਕਤੀਆਂ।",
+  "landing.matchCentre": "ਮੈਚ ਸੈਂਟਰ",
+
+  // Feature Showcase Cards (Gen-Z & High Hype)
+  "feat.catchmeup.title": "ਕੈਚ ਮੀ ਅੱਪ • 20 ਸਕਿੰਟ ਰੀਕੈਪ",
+  "feat.catchmeup.tag": "ਕੋਈ ਝੂਠ ਨਹੀਂ, ਸਿਰਫ਼ ਟੈਲੀਮੈਟਰੀ",
+  "feat.catchmeup.desc": "ਚਾਹ ਪੀਣ ਗਏ ਸੀ? 20 ਸਕਿੰਟਾਂ ਵਿੱਚ ਸਭ ਕੁਝ ਜਾਣੋ। ਮੈਚ ਇੰਜਣ ਦੁਆਰਾ ਪ੍ਰਮਾਣਿਤ ਹਰ ਇੱਕ ਦਾਅਵਾ।",
+
+  "feat.fantasy.title": "ਫੈਂਟਸੀ ਪਲਸ ਅਤੇ MVP ਰਡਾਰ",
+  "feat.fantasy.tag": "ਆਪਣੀ ਫੈਂਟਸੀ ਲੀਗ ਜਿੱਤੋ",
+  "feat.fantasy.desc": "ਲਾਈਵ ਅਧਿਕਾਰਤ ਟੀ20 ਡ੍ਰੀਮ11 ਅੰਕ, ਮੈਚ MVP, ਡਿਫਰੈਂਸ਼ੀਅਲ ਪਿਕਸ, ਅਤੇ ਵਟਸਐਪ ਸ਼ੇਅਰ।",
+
+  "feat.whatif.title": "ਵ੍ਹਟ-ਇਫ ਚੇਜ਼ ਸਿਮੂਲੇਟਰ",
+  "feat.whatif.tag": "ਭਵਿੱਖ ਪਹਿਲਾਂ ਹੀ ਜਾਣੋ",
+  "feat.whatif.desc": "ਅਗਲੇ ਓਵਰ ਦੀਆਂ ਦੌੜਾਂ ਅਤੇ ਵਿਕਟਾਂ ਬਦਲ ਕੇ ਜਿੱਤਣ ਦੀ ਸੰਭਾਵਨਾ (Δ) ਅਤੇ ਰਣਨੀਤੀ ਵੇਖੋ।",
+
+  "feat.banter.title": "ਬਹਿਸ ਦਾ ਨਿਪਟਾਰਾ",
+  "feat.banter.tag": "ਗਰੁੱਪ ਚੈਟ ਦੀ ਬਹਿਸ ਖ਼ਤਮ",
+  "feat.banter.desc": "ਦੋਸਤ ਟਰਨਿੰਗ ਪੁਆਇੰਟ 'ਤੇ ਬਹਿਸ ਕਰ ਰਹੇ ਹਨ? AI ਅੰਪਾਇਰ ਟੈਲੀਮੈਟਰੀ ਸਬੂਤਾਂ ਨਾਲ ਤੁਰੰਤ ਫ਼ੈਸਲਾ ਕਰੇਗਾ।",
+
+  "feat.samjhao.title": "ਸਮਝਾਓ • ਕੁਝ ਵੀ ਪੁੱਛੋ",
+  "feat.samjhao.tag": "ਤੁਹਾਡੀ ਜੇਬ ਵਿੱਚ ਕ੍ਰਿਕਟ ਮਾਹਰ",
+  "feat.samjhao.desc": "ਸਕੋਰ, ਡੀਆਰਐਸ ਨਿਯਮ ਜਾਂ ਰਣਨੀਤੀ ਬਾਰੇ ਪੰਜਾਬੀ ਵਿੱਚ ਪੁੱਛੋ। ਲਾਈਵ ਮੈਚ ਡੇਟਾ ਨਾਲ ਸਿੱਧਾ ਜੁੜਿਆ ਹੋਇਆ।",
+
+  "feat.game.title": "ਅਗਲਾ ਓਵਰ ਦੱਸੋ",
+  "feat.game.tag": "ਆਪਣੀ ਕ੍ਰਿਕਟ ਸਮਝ ਪਰਖੋ",
+  "feat.game.desc": "ਮੁਫ਼ਤ ਅਨੁਮਾਨ ਖੇਡ: ਅਗਲੇ ਓਵਰ ਦਾ ਨਤੀਜਾ ਦੱਸੋ ਅਤੇ ਜਿੱਤਣ ਦੀ ਲੜੀ ਬਣਾਓ।",
+
+  "feat.rooms.title": "ਪ੍ਰਾਈਵੇਟ ਫੈਨ ਰੂਮਜ਼",
+  "feat.rooms.tag": "ਦੋਸਤਾਂ ਨਾਲ ਮੁਕਾਬਲਾ",
+  "feat.rooms.desc": "6 ਅੱਖਰਾਂ ਦਾ ਕੋਡ ਬਣਾਓ, ਲਿੰਕ ਸਾਂਝਾ ਕਰੋ ਅਤੇ ਲਾਈਵ ਲੀਡਰਬੋਰਡ 'ਤੇ ਸਿਖਰ 'ਤੇ ਪਹੁੰਚੋ।",
+
+  "feat.i18n.title": "10 ਭਾਸ਼ਾਵਾਂ ਅਤੇ ਐਂਟੀ-ਸਪੋਇਲਰ ਸਿੰਕ",
+  "feat.i18n.tag": "ਭਾਰਤੀ ਪ੍ਰਸ਼ੰਸਕਾਂ ਲਈ",
+  "feat.i18n.desc": "10 ਭਾਰਤੀ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ ਤੁਰੰਤ ਬਦਲੋ। ਟੀਵੀ ਪ੍ਰਸਾਰਣ ਨਾਲ ਸਮਾਂ ਮਿਲਾ ਕੇ ਸਪੋਇਲਰ ਤੋਂ ਬਚੋ।",
+
+  // Settings & Controls
+  "settings.theme": "ਥੀਮ",
+  "settings.alerts": "ਅਲਰਟ",
+  "settings.notifications": "ਬ੍ਰਾਊਜ਼ਰ ਸੂਚਨਾਵਾਂ",
+  "settings.vibration": "ਵਾਈਬ੍ਰੇਸ਼ਨ",
+  "settings.analytics": "ਗੁਮਨਾਮ ਵਰਤੋਂ ਡੇਟਾ ਸਾਂਝਾ ਕਰੋ",
+  "settings.language": "ਭਾਸ਼ਾ ਚੁਣੋ",
+  "settings.mode": "ਪ੍ਰਸ਼ੰਸਕ ਮੋਡ",
+
+  // Beyond The Score
+  "beyond.title": "ਸਕੋਰ ਤੋਂ ਅੱਗੇ",
+  "beyond.subtitle": "ਇੰਟਰਐਕਟਿਵ AI ਫੈਨ ਫੀਚਰ",
+  "beyond.tag": "ਪ੍ਰਸ਼ੰਸਕ ਪੱਖ",
+
+  // Spoiler Shield
+  "spoiler.noDelay": "ਕੋਈ ਦੇਰੀ ਸੈੱਟ ਨਹੀਂ ਹੈ।",
+  "spoiler.tapInstruction": "ਜਿਵੇਂ ਹੀ ਤੁਹਾਡੇ ਟੀਵੀ 'ਤੇ ਅਗਲੀ ਵਿਕਟ ਜਾਂ ਚੌਕਾ/ਛੱਕਾ ਦਿਸੇ, ਬਟਨ ਦਬਾਓ।",
+  "spoiler.waiting": "ਅਗਲੇ ਪਲ ਦੀ ਉਡੀਕ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ…",
+  "spoiler.tapNow": "ਹੁਣੇ ਦਬਾਓ!",
 };

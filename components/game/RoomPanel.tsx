@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Users } from "lucide-react";
+import { LoaderCircle, Trophy, Users } from "lucide-react";
 import { createPersistentStore } from "@/lib/utils/persistent-store";
 import { track } from "@/lib/analytics/track";
 import { gameStore } from "./CallTheNextOverPanel";
@@ -115,15 +115,22 @@ export function RoomPanel() {
               onChange={(e) => setNicknameInput(e.target.value)}
               placeholder="Your nickname"
               maxLength={20}
-              className="rounded-(--radius-md) border border-(--color-border) bg-(--color-bg) px-3 py-2"
+              className="w-full rounded-xl border border-(--color-border) bg-(--color-surface-2) px-3.5 py-2.5 text-sm transition focus:border-(--color-accent) focus:outline-none"
             />
           </div>
           <button
             onClick={() => submitRoom(createRoom)}
             disabled={pending}
-            className="button-primary"
+            className="button-primary w-full"
           >
-            Create a room
+            {pending ? (
+              <>
+                <LoaderCircle className="animate-spin" size={16} aria-hidden="true" />
+                <span>Creating...</span>
+              </>
+            ) : (
+              "Create a room"
+            )}
           </button>
           <div className="border-t border-(--color-border) pt-4">
             <label htmlFor="room-code" className="field-label">
@@ -138,43 +145,61 @@ export function RoomPanel() {
                 onChange={(e) => setJoinCodeInput(e.target.value)}
                 placeholder="6-character code"
                 maxLength={6}
-                className="flex-1 rounded-(--radius-md) border border-(--color-border) bg-(--color-bg) px-3 py-2 uppercase"
+                className="flex-1 rounded-xl border border-(--color-border) bg-(--color-surface-2) px-3.5 py-2.5 font-mono text-sm tracking-widest uppercase transition focus:border-(--color-accent) focus:outline-none"
               />
               <button
                 onClick={() => submitRoom(joinRoom)}
                 disabled={pending}
-                className="button-secondary shrink-0"
+                className="button-secondary shrink-0 px-5"
               >
                 Join
               </button>
             </div>
           </div>
           {pending && (
-            <p role="status" className="text-sm text-(--color-text-muted)">
+            <p role="status" className="flex items-center gap-2 text-xs text-(--color-text-muted)">
+              <LoaderCircle size={14} className="animate-spin text-(--color-accent)" />
               Connecting to room...
             </p>
           )}
           {error && (
-            <p role="alert" className="text-sm text-(--color-danger)">
+            <p role="alert" className="text-xs font-semibold text-(--color-danger)">
               {error}
             </p>
           )}
         </div>
       ) : (
         <div className="text-sm">
-          <p className="mb-2">
-            Room code: <strong className="font-mono text-lg">{room.code}</strong> (expires in 24h)
-          </p>
-          <ol className="flex flex-col gap-1">
+          <div className="mb-4 flex items-center justify-between rounded-xl border border-(--color-border) bg-(--color-surface-2) p-3">
+            <div>
+              <p className="text-[10px] font-bold tracking-wider text-(--color-text-muted) uppercase">
+                Room Code
+              </p>
+              <p className="font-mono text-xl font-bold tracking-widest text-(--color-accent)">
+                {room.code}
+              </p>
+            </div>
+            <span className="text-[10px] font-medium text-(--color-text-muted)">
+              Expires in 24h
+            </span>
+          </div>
+
+          <div className="mb-2 flex items-center gap-1.5 text-xs font-bold text-(--color-text-muted)">
+            <Trophy size={14} className="text-(--color-accent)" />
+            <span>Leaderboard</span>
+          </div>
+          <ol className="flex flex-col divide-y divide-(--color-border) rounded-xl border border-(--color-border) bg-(--color-surface-2)/30 px-3">
             {leaderboard.map((m, i) => (
               <li
                 key={m.nickname}
-                className="flex justify-between gap-4 border-b border-(--color-border) py-3"
+                className="flex items-center justify-between gap-4 py-2.5 text-sm"
               >
-                <span>
+                <span className="font-medium">
                   {i + 1}. {m.nickname}
                 </span>
-                <span className="font-semibold tabular-nums">{m.totalPoints}</span>
+                <span className="font-semibold text-(--color-text) tabular-nums">
+                  {m.totalPoints}
+                </span>
               </li>
             ))}
           </ol>

@@ -27,11 +27,12 @@ export { gameStore };
 const OUTCOMES: {
   key: PredictionOutcome;
   labelKey: "game.wicket" | "game.boundary" | "game.tenPlus" | "game.quietOver";
+  dotColor: string;
 }[] = [
-  { key: "wicket", labelKey: "game.wicket" },
-  { key: "boundary", labelKey: "game.boundary" },
-  { key: "ten_plus", labelKey: "game.tenPlus" },
-  { key: "quiet_over", labelKey: "game.quietOver" },
+  { key: "wicket", labelKey: "game.wicket", dotColor: "bg-rose-500" },
+  { key: "boundary", labelKey: "game.boundary", dotColor: "bg-emerald-500" },
+  { key: "ten_plus", labelKey: "game.tenPlus", dotColor: "bg-amber-500" },
+  { key: "quiet_over", labelKey: "game.quietOver", dotColor: "bg-sky-500" },
 ];
 
 export function CallTheNextOverPanel() {
@@ -50,9 +51,6 @@ export function CallTheNextOverPanel() {
     const summary = overSummaries.find((o) => o.over === predictedOver);
     if (!summary) return;
 
-    // Resolving a finished over is a reaction to the match engine ticking
-    // forward, not a value derivable during render — nested one level so the
-    // state updates read as "callbacks reacting to an external change".
     function resolveFinishedOver() {
       const overBalls = balls.filter((b) => b.over === predictedOver);
       const outcomes = resolveOverOutcome(overBalls, summary!);
@@ -88,34 +86,43 @@ export function CallTheNextOverPanel() {
         <Crosshair aria-hidden="true" />
         {strings["game.title"]}
       </h3>
-      <p className="mb-3 text-xs text-(--color-text-muted)">
+      <p className="mb-4 text-xs text-(--color-text-muted)">
         Free to play — no money, no prizes, just bragging rights.
       </p>
 
       {isMatchOver ? (
-        <p className="text-sm text-(--color-text-muted)">
-          The match is over — final score: {state.totalPoints} points.
+        <p className="rounded-xl border border-(--color-border) bg-(--color-surface-2) p-4 text-sm text-(--color-text-muted)">
+          The match is over — final score:{" "}
+          <strong className="text-(--color-text)">{state.totalPoints} points</strong>.
         </p>
       ) : predictedOver !== null ? (
-        <p
-          className="border-l-2 border-(--color-success) bg-(--color-surface-2) p-4 text-sm"
+        <div
+          className="rounded-xl border-l-4 border-(--color-success) bg-(--color-surface-2) p-4 text-sm shadow-xs"
           role="status"
         >
-          Locked in <strong>{pick}</strong> for over {predictedOver}. Waiting for it to finish…
-        </p>
+          <p className="font-semibold text-(--color-text)">Prediction locked</p>
+          <p className="mt-1 text-xs text-(--color-text-muted)">
+            Locked in <strong className="text-(--color-accent)">{pick}</strong> for over{" "}
+            {predictedOver}. Waiting for it to finish…
+          </p>
+        </div>
       ) : (
         <>
-          <p className="mb-2 text-sm">
+          <p className="mb-3 text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
             {strings["game.pickOutcome"]} (over {nextOverToPredict})
           </p>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-2.5">
             {OUTCOMES.map((o) => (
               <button
                 key={o.key}
+                type="button"
                 onClick={() => choose(o.key)}
-                className="button-secondary justify-start hover:border-(--color-accent)"
+                className="button-secondary group relative flex items-center justify-between px-3.5 py-3 text-left text-sm font-semibold transition hover:border-(--color-accent)"
               >
-                {strings[o.labelKey]}
+                <span>{strings[o.labelKey]}</span>
+                <span
+                  className={`size-2 rounded-full ${o.dotColor} opacity-75 transition group-hover:scale-125 group-hover:opacity-100`}
+                />
               </button>
             ))}
           </div>
@@ -123,19 +130,22 @@ export function CallTheNextOverPanel() {
       )}
 
       {explanation && (
-        <p className="mt-3 rounded-(--radius-md) bg-(--color-surface-2) p-2 text-xs italic">
+        <p className="mt-3.5 rounded-xl border border-(--color-border) bg-(--color-surface-2) p-3 text-xs leading-relaxed text-(--color-text-muted) italic">
           {explanation}
         </p>
       )}
 
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-(--color-border) pt-3 text-xs text-(--color-text-muted) tabular-nums">
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-(--color-border) pt-3 text-xs font-medium text-(--color-text-muted) tabular-nums">
         <span>
-          {strings["game.streak"]}: {state.streak}
+          {strings["game.streak"]}: <strong className="text-(--color-text)">{state.streak}</strong>
         </span>
         <span>
-          {strings["game.personalBest"]}: {state.personalBest}
+          {strings["game.personalBest"]}:{" "}
+          <strong className="text-(--color-text)">{state.personalBest}</strong>
         </span>
-        <span>Total: {state.totalPoints}</span>
+        <span>
+          Total: <strong className="text-(--color-accent)">{state.totalPoints}</strong>
+        </span>
       </div>
     </section>
   );

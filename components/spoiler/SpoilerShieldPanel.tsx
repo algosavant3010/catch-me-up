@@ -47,7 +47,7 @@ export function SpoilerShieldPanel() {
       <p className="mt-1 text-sm text-(--color-text-muted)">
         {delaySeconds > 0
           ? t(strings, "spoiler.behindBy", { seconds: delaySeconds })
-          : "No delay set."}
+          : strings["spoiler.noDelay"]}
       </p>
 
       {!calibrating ? (
@@ -61,8 +61,7 @@ export function SpoilerShieldPanel() {
       ) : (
         <div className="mt-3 flex flex-col gap-2">
           <p className="text-sm">
-            Tap the button the instant you see the next wicket or boundary on your own TV or stream.
-            ({taps.length}/{REQUIRED_TAPS} taps)
+            {strings["spoiler.tapInstruction"]} ({taps.length}/{REQUIRED_TAPS})
           </p>
           <button
             type="button"
@@ -70,7 +69,7 @@ export function SpoilerShieldPanel() {
             disabled={pendingEmittedAt === null}
             className="button-primary"
           >
-            {pendingEmittedAt === null ? "Waiting for the next moment…" : "Tap now!"}
+            {pendingEmittedAt === null ? strings["spoiler.waiting"] : strings["spoiler.tapNow"]}
           </button>
         </div>
       )}

@@ -3,8 +3,8 @@
  * call sites — see docs/DECISIONS.md #1 for why these two defaults were
  * chosen over gemini-3.8-flash.
  */
-export const DEFAULT_QUALITY_MODEL = "gemini-3.6-flash";
-export const DEFAULT_FAST_MODEL = "gemini-3.5-flash-lite";
+export const DEFAULT_QUALITY_MODEL = "gemini-3.8-flash";
+export const DEFAULT_FAST_MODEL = "gemini-3.8-flash";
 
 export const PROMPT_VERSION = "v1";
 

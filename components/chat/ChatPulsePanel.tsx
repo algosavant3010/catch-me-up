@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Activity } from "lucide-react";
+import { Activity, Flame, MessageSquareQuote } from "lucide-react";
 import { useMatchState } from "@/lib/match/use-match-state";
 import { usePreferences } from "@/components/providers/preferences-provider";
 import { generateChatForBall, type ChatMessage } from "@/lib/chat/generator";
@@ -55,34 +55,46 @@ export function ChatPulsePanel() {
 
   return (
     <section className="feature-panel">
-      <div className="mb-2 flex items-center justify-between">
+      <div className="mb-4 flex items-center justify-between">
         <h3 className="section-heading mb-0">
           <Activity aria-hidden="true" />
           Chat Pulse
         </h3>
-        <span className="eyebrow">Simulated chat</span>
+        <span className="eyebrow flex items-center gap-1.5 font-bold">
+          <span className="size-1.5 animate-pulse rounded-full bg-(--color-success)" />
+          Simulated chat
+        </span>
       </div>
 
       {!pulse && loading && <SkeletonPulse />}
       {!pulse && !loading && (
-        <p className="flex min-h-24 items-center border-l-2 border-(--color-border) pl-4 text-sm text-(--color-text-muted)">
-          Waiting for chat to build up…
-        </p>
+        <div className="flex min-h-28 flex-col items-center justify-center rounded-xl border border-dashed border-(--color-border) p-4 text-center">
+          <MessageSquareQuote className="mb-2 size-6 text-(--color-text-muted)" />
+          <p className="text-xs text-(--color-text-muted)">Waiting for match chat to build up…</p>
+        </div>
       )}
       {pulse && (
-        <div className="flex flex-col gap-2 text-sm">
-          <div className="flex items-center gap-2">
-            <span className="rounded-sm bg-(--color-accent) px-2 py-1 text-xs text-white capitalize">
+        <div className="flex flex-col gap-3 text-sm">
+          <div className="flex items-center justify-between gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-(--color-accent)/10 px-3 py-1 text-xs font-bold text-(--color-accent) capitalize">
+              <Flame size={12} />
               {pulse.mood}
             </span>
-            <span className="text-xs text-(--color-text-muted)">Hype {pulse.hypeScore}/100</span>
+            <span className="text-xs font-semibold text-(--color-text-muted) tabular-nums">
+              Hype <strong className="text-(--color-text)">{pulse.hypeScore}</strong>/100
+            </span>
           </div>
-          <ul className="list-disc pl-4">
+          <ul className="space-y-1.5 rounded-xl border border-(--color-border) bg-(--color-surface-2)/40 p-3 text-xs leading-relaxed">
             {pulse.topTakes.filter(Boolean).map((take, i) => (
-              <li key={i}>{take}</li>
+              <li key={i} className="flex items-start gap-2">
+                <span className="mt-1 size-1 shrink-0 rounded-full bg-(--color-accent)" />
+                <span>{take}</span>
+              </li>
             ))}
           </ul>
-          <p className="text-(--color-text-muted) italic">&quot;{pulse.standoutMessage}&quot;</p>
+          <p className="rounded-xl border-l-2 border-(--color-accent) bg-(--color-surface-2) p-3 text-xs text-(--color-text-muted) italic">
+            &quot;{pulse.standoutMessage}&quot;
+          </p>
         </div>
       )}
     </section>
@@ -91,10 +103,10 @@ export function ChatPulsePanel() {
 
 function SkeletonPulse() {
   return (
-    <div className="animate-pulse space-y-2 motion-reduce:animate-none">
-      <div className="h-3 w-1/3 rounded bg-(--color-surface-2)" />
-      <div className="h-3 w-2/3 rounded bg-(--color-surface-2)" />
-      <div className="h-3 w-1/2 rounded bg-(--color-surface-2)" />
+    <div className="animate-pulse space-y-2.5 motion-reduce:animate-none">
+      <div className="h-4 w-1/3 rounded-lg bg-(--color-surface-2)" />
+      <div className="h-12 w-full rounded-lg bg-(--color-surface-2)" />
+      <div className="h-8 w-2/3 rounded-lg bg-(--color-surface-2)" />
     </div>
   );
 }

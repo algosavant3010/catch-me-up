@@ -16,7 +16,10 @@ import { SettingsSheet } from "@/components/settings/SettingsSheet";
 import { ChatPulsePanel } from "@/components/chat/ChatPulsePanel";
 import { CallTheNextOverPanel } from "@/components/game/CallTheNextOverPanel";
 import { RoomPanel } from "@/components/game/RoomPanel";
-import { SnapTheTV } from "@/components/vision/SnapTheTV";
+import { FantasyPulsePanel } from "@/components/game/FantasyPulsePanel";
+import { SettleTheBanterPanel } from "@/components/game/SettleTheBanterPanel";
+import { WhatIfSimulatorPanel } from "@/components/game/WhatIfSimulatorPanel";
+import { LanguageSwitcher } from "@/components/i18n/LanguageSwitcher";
 
 export function MatchExperience({ meta, startAtBall }: { meta: MatchMeta; startAtBall: number }) {
   return (
@@ -32,54 +35,72 @@ function MatchLayout() {
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   return (
-    <main className="page-shell flex flex-1 flex-col pb-28 sm:pb-8">
-      <header className="flex items-center justify-between gap-4 border-b border-(--color-border) py-5">
+    <main className="page-shell flex flex-1 flex-col pb-28 sm:pb-12">
+      <header className="flex items-center justify-between gap-4 border-b border-(--color-border) py-4 sm:py-5">
         <Link
           href="/"
-          className="flex items-center gap-2 text-lg font-bold"
+          className="flex items-center gap-2.5 text-lg font-bold tracking-tight"
           aria-label="Catch Me Up home"
         >
-          <Zap className="size-6 text-(--color-accent-2)" aria-hidden="true" />
-          CATCH ME UP
-          <span className="hidden text-xs font-medium text-(--color-text-muted) sm:inline">
-            {" "}
-            / MATCH CENTRE
+          <span className="flex size-8 items-center justify-center rounded-lg bg-(--color-accent)/15 text-(--color-accent)">
+            <Zap className="size-5" aria-hidden="true" />
+          </span>
+          <span className="font-extrabold tracking-tight">CATCH ME UP</span>
+          <span className="hidden rounded-full border border-(--color-border) bg-(--color-surface-2) px-2.5 py-0.5 text-[10px] font-bold tracking-wider text-(--color-text-muted) uppercase sm:inline">
+            {strings["landing.matchCentre"]}
           </span>
         </Link>
-        <button
-          type="button"
-          onClick={() => setSettingsOpen(true)}
-          aria-label={strings["nav.settings"]}
-          title={strings["nav.settings"]}
-          className="icon-button"
-        >
-          <Settings2 aria-hidden="true" />
-        </button>
+        <div className="flex items-center gap-2">
+          <LanguageSwitcher />
+          <button
+            type="button"
+            onClick={() => setSettingsOpen(true)}
+            aria-label={strings["nav.settings"]}
+            title={strings["nav.settings"]}
+            className="icon-button size-9 rounded-xl border border-(--color-border) bg-(--color-surface-2)/70"
+          >
+            <Settings2 aria-hidden="true" size={16} />
+          </button>
+        </div>
       </header>
-      <div className="flex flex-wrap items-center justify-between gap-3 py-5 text-xs text-(--color-text-muted)">
-        <p>{strings["app.simulatedBanner"]}</p>
-        <span className="flex items-center gap-1 font-semibold">
-          <ArrowUpRight size={14} aria-hidden="true" /> T20 / FINAL CHASE
+
+      <div className="flex flex-wrap items-center justify-between gap-3 py-3.5 text-xs font-medium text-(--color-text-muted)">
+        <p className="flex items-center gap-1.5">
+          <span className="size-1.5 rounded-full bg-(--color-accent)" />
+          {strings["app.simulatedBanner"]}
+        </p>
+        <span className="inline-flex items-center gap-1 rounded-md bg-(--color-surface-2) px-2.5 py-1 font-bold tracking-wider text-(--color-text) uppercase">
+          <ArrowUpRight size={13} aria-hidden="true" className="text-(--color-accent)" /> T20 /
+          FINAL CHASE
         </span>
       </div>
-      <h1 className="sr-only">Match centre</h1>
+
+      <h1 className="sr-only">{strings["landing.matchCentre"]}</h1>
+
       <div className="match-grid">
         <Scoreboard />
-        <div className="flex min-w-0 flex-col justify-between gap-5">
+        <div className="flex min-w-0 flex-col justify-between gap-4">
           <WinProbChart />
           <TensionMeter />
           <SpeedControls />
         </div>
       </div>
-      <div className="mt-8 mb-3 flex items-center justify-between border-t border-(--color-border) pt-6">
-        <h2 className="text-xl font-bold">Beyond the score</h2>
-        <span className="eyebrow">The fan side</span>
+
+      <div className="mt-10 mb-5 flex items-center justify-between border-t border-(--color-border) pt-6">
+        <div>
+          <h2 className="text-xl font-bold tracking-tight text-(--color-text)">{strings["beyond.title"]}</h2>
+          <p className="text-xs text-(--color-text-muted)">{strings["beyond.subtitle"]}</p>
+        </div>
+        <span className="eyebrow">{strings["beyond.tag"]}</span>
       </div>
+
       <div className="match-tools">
-        <ChatPulsePanel />
+        <FantasyPulsePanel />
+        <WhatIfSimulatorPanel />
+        <SettleTheBanterPanel />
         <CallTheNextOverPanel />
         <RoomPanel />
-        <SnapTheTV />
+        <ChatPulsePanel />
       </div>
 
       <ActionBar />

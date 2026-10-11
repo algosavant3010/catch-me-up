@@ -11,22 +11,21 @@ import { track } from "@/lib/analytics/track";
 
 export function ActionBar() {
   const { strings } = usePreferences();
-  const { balls, lastSeenBall, markSeenUpToNow, awayFromBall, goAway, comeBack } =
+  const { awayFromBall, goAway, comeBack, lastSeenBall, balls, markSeenUpToNow } =
     useMatchRuntime();
-  const [recapWindow, setRecapWindow] = useState<{ from: number; to: number } | null>(null);
+  const [recapOpen, setRecapOpen] = useState(false);
   const [askOpen, setAskOpen] = useState(false);
+  const [recapWindow, setRecapWindow] = useState<{ from: number; to: number }>({ from: 0, to: 0 });
 
-  const latestBall = balls.length > 0 ? balls[balls.length - 1].n : 0;
+  const currentBallNumber = balls.length > 0 ? balls[balls.length - 1].n : 0;
 
   const openCatchMeUp = () => {
     track("recap_requested");
-    const from = lastSeenBall + 1;
-    setRecapWindow({ from: Math.min(from, latestBall), to: latestBall });
-  };
-
-  const closeCatchMeUp = () => {
+    const from = Math.max(0, lastSeenBall);
+    const to = currentBallNumber;
+    setRecapWindow({ from, to });
+    setRecapOpen(true);
     markSeenUpToNow();
-    setRecapWindow(null);
   };
 
   const handleAway = () => {
@@ -35,7 +34,9 @@ export function ActionBar() {
       goAway();
     } else {
       track("away_ended");
-      setRecapWindow(comeBack());
+      const window = comeBack();
+      setRecapWindow(window);
+      setRecapOpen(true);
     }
   };
 
@@ -44,9 +45,9 @@ export function ActionBar() {
       <AwayBadge />
       <nav
         aria-label="Match actions"
-        className="action-dock fixed inset-x-0 bottom-0 z-40 border-t border-(--color-border) bg-(--color-surface) px-3 py-3 sm:sticky sm:bottom-0 sm:mt-5 sm:border sm:px-4"
+        className="action-dock fixed inset-x-0 bottom-0 z-40 border-t border-(--color-border) bg-(--color-surface)/95 px-3 py-2.5 backdrop-blur-md sm:sticky sm:bottom-4 sm:mt-6 sm:rounded-2xl sm:border sm:px-4 sm:shadow-lg"
       >
-        <div className="mx-auto flex max-w-2xl items-stretch justify-around gap-2">
+        <div className="mx-auto flex max-w-2xl items-center justify-around gap-2.5">
           <ActionButton
             label={strings["nav.catchMeUp"]}
             onClick={openCatchMeUp}
@@ -67,9 +68,12 @@ export function ActionBar() {
         </div>
       </nav>
 
-      {recapWindow && (
-        <CatchMeUpSheet open onClose={closeCatchMeUp} from={recapWindow.from} to={recapWindow.to} />
-      )}
+      <CatchMeUpSheet
+        open={recapOpen}
+        onClose={() => setRecapOpen(false)}
+        from={recapWindow.from}
+        to={recapWindow.to}
+      />
       <SamjhaoSheet open={askOpen} onClose={() => setAskOpen(false)} />
     </>
   );
@@ -93,10 +97,22 @@ function ActionButton({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`${primary || active ? "button-primary" : "button-secondary"} min-w-0 flex-1 flex-col gap-1 px-2 text-xs sm:flex-row sm:gap-2 sm:text-sm`}
+      className={`flex min-w-0 flex-1 items-center justify-center gap-2 rounded-xl px-3 py-3 text-xs font-bold shadow-xs transition sm:px-4 sm:text-sm ${
+        primary
+          ? "button-primary"
+          : active
+            ? "border border-amber-500 bg-amber-500 text-white shadow-md hover:bg-amber-600"
+            : "button-secondary"
+      }`}
     >
-      <Icon size={18} aria-hidden="true" />
-      {label}
+      <Icon
+        size={18}
+        aria-hidden="true"
+        className={
+          primary ? "animate-pulse text-white" : active ? "text-white" : "text-(--color-accent)"
+        }
+      />
+      <span>{label}</span>
     </button>
   );
 }

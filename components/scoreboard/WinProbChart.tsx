@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useId, useMemo } from "react";
 import { computeMatchState } from "@/lib/match/engine";
 import { useMatchState } from "@/lib/match/use-match-state";
 
@@ -13,6 +13,7 @@ const HEIGHT = 96;
  * this is a simple enough shape to hand-draw.
  */
 export function WinProbChart() {
+  const gradientId = useId();
   const { meta, balls, state } = useMatchState();
 
   const points = useMemo(() => {
@@ -30,7 +31,7 @@ export function WinProbChart() {
 
   if (points.length < 2) {
     return (
-      <div className="flex h-48 items-center justify-center border-b border-dashed border-(--color-border) text-sm text-(--color-text-muted)">
+      <div className="feature-panel flex h-48 items-center justify-center text-sm text-(--color-text-muted)">
         Win probability chart will appear once the match starts.
       </div>
     );
@@ -39,31 +40,38 @@ export function WinProbChart() {
   const path = points
     .map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)},${p.y.toFixed(1)}`)
     .join(" ");
+  const areaPath = `${path} L${points[points.length - 1].x.toFixed(1)},${HEIGHT} L${points[0].x.toFixed(1)},${HEIGHT} Z`;
   const wickets = points.filter((p) => p.wicket);
 
   return (
-    <section aria-label="Win probability" className="min-w-0 pt-2">
-      <div className="mb-6 flex items-start justify-between gap-4">
+    <section aria-label="Win probability" className="feature-panel">
+      <div className="mb-4 flex items-start justify-between gap-4">
         <div>
-          <h2 className="text-lg font-bold">Chase momentum</h2>
+          <h2 className="text-base font-bold text-(--color-text)">Chase momentum</h2>
           <p className="text-xs text-(--color-text-muted)">Estimated win probability</p>
         </div>
-        <span className="text-3xl font-bold tabular-nums">
+        <span className="inline-flex items-baseline gap-1 rounded-xl bg-(--color-accent)/10 px-3 py-1 text-2xl font-black text-(--color-accent) tabular-nums">
           {Math.round(state.winProb * 100)}
-          <span className="text-base text-(--color-text-muted)">%</span>
+          <span className="text-xs font-semibold">%</span>
         </span>
       </div>
-      <div className="mb-2 flex justify-between text-xs text-(--color-text-muted)">
-        <span>100%</span>
+      <div className="mb-2 flex justify-between text-xs font-semibold text-(--color-text-muted)">
+        <span>100% win chance</span>
         <span>{meta.battingTeam.name}</span>
       </div>
       <svg
         viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
         role="img"
         aria-label={`Win probability chart, currently ${Math.round(state.winProb * 100)}%`}
-        className="h-36 w-full overflow-visible motion-reduce:[&_*]:transition-none"
+        className="h-32 w-full overflow-visible motion-reduce:[&_*]:transition-none"
         preserveAspectRatio="none"
       >
+        <defs>
+          <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--color-accent)" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="var(--color-accent)" stopOpacity="0.0" />
+          </linearGradient>
+        </defs>
         <line
           x1="0"
           y1={HEIGHT / 2}
@@ -72,11 +80,12 @@ export function WinProbChart() {
           stroke="var(--color-border)"
           strokeDasharray="4 4"
         />
+        <path d={areaPath} fill={`url(#${gradientId})`} />
         <path
           d={path}
           fill="none"
-          stroke="var(--color-accent-2)"
-          strokeWidth="2"
+          stroke="var(--color-accent)"
+          strokeWidth="2.5"
           strokeLinecap="round"
         />
         {wickets.map((w, i) => (
@@ -84,17 +93,17 @@ export function WinProbChart() {
             key={i}
             cx={w.x}
             cy={w.y}
-            r="3.5"
+            r="4"
             fill="var(--color-danger)"
             stroke="var(--color-surface)"
-            strokeWidth="1"
+            strokeWidth="1.5"
           />
         ))}
       </svg>
-      <div className="mt-3 flex justify-between border-t border-(--color-border) pt-2 text-xs text-(--color-text-muted)">
+      <div className="mt-3 flex justify-between border-t border-(--color-border) pt-2.5 text-xs text-(--color-text-muted)">
         <span>0 overs</span>
-        <span>
-          Wicket markers / <span className="text-(--color-danger)">●</span>
+        <span className="flex items-center gap-1.5 font-medium">
+          Wicket markers / <span className="size-2 rounded-full bg-(--color-danger)" />
         </span>
         <span>{meta.oversLimit} overs</span>
       </div>

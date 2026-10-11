@@ -35,16 +35,20 @@ export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () =>
 
   return (
     <Sheet open={open} onClose={onClose} title={strings["nav.settings"]}>
-      <div className="flex flex-col gap-5 text-sm">
+      <div className="flex flex-col gap-6 text-sm">
         <div className="settings-section">
-          <p className="mb-2 font-medium">{strings["onboarding.step1Title"]}</p>
+          <p className="mb-2.5 font-bold text-(--color-text)">{strings["onboarding.step1Title"]}</p>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
             {LOCALES.map((l) => (
               <button
                 key={l.code}
                 onClick={() => setLocale(l.code)}
                 aria-pressed={locale === l.code}
-                className={`rounded-(--radius-md) border border-(--color-border) px-3 py-2 text-sm ${locale === l.code ? "bg-(--color-accent) text-white" : "bg-(--color-surface-2) hover:border-(--color-text-muted)"}`}
+                className={`rounded-xl border px-3 py-2.5 text-xs font-semibold transition ${
+                  locale === l.code
+                    ? "border-(--color-accent) bg-(--color-accent) text-white shadow-sm"
+                    : "border-(--color-border) bg-(--color-surface-2) text-(--color-text) hover:border-(--color-border-hover)"
+                }`}
               >
                 {l.nativeLabel}
               </button>
@@ -53,14 +57,18 @@ export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () =>
         </div>
 
         <div className="settings-section">
-          <p className="mb-2 font-medium">{strings["onboarding.step2Title"]}</p>
+          <p className="mb-2.5 font-bold text-(--color-text)">{strings["onboarding.step2Title"]}</p>
           <div className="flex gap-2">
             {MODES.map((m) => (
               <button
                 key={m}
                 onClick={() => setMode(m)}
                 aria-pressed={mode === m}
-                className={`flex-1 rounded-(--radius-md) border border-(--color-border) px-3 py-2 ${mode === m ? "bg-(--color-accent) text-white" : "bg-(--color-surface-2)"}`}
+                className={`flex-1 rounded-xl border px-3 py-2.5 text-xs font-semibold transition ${
+                  mode === m
+                    ? "border-(--color-accent) bg-(--color-accent) text-white shadow-sm"
+                    : "border-(--color-border) bg-(--color-surface-2) text-(--color-text) hover:border-(--color-border-hover)"
+                }`}
               >
                 {strings[`mode.${m}` as const]}
               </button>
@@ -69,19 +77,27 @@ export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () =>
         </div>
 
         <div className="settings-section">
-          <p className="mb-2 font-medium">Theme</p>
+          <p className="mb-2.5 font-bold text-(--color-text)">{strings["settings.theme"]}</p>
           <div className="flex gap-2">
             <button
               onClick={() => setTheme("light")}
               aria-pressed={theme === "light"}
-              className={`flex-1 rounded-(--radius-md) border border-(--color-border) px-3 py-2 ${theme === "light" ? "bg-(--color-accent) text-white" : "bg-(--color-surface-2)"}`}
+              className={`flex-1 rounded-xl border px-3 py-2.5 text-xs font-semibold transition ${
+                theme === "light"
+                  ? "border-(--color-accent) bg-(--color-accent) text-white shadow-sm"
+                  : "border-(--color-border) bg-(--color-surface-2) text-(--color-text) hover:border-(--color-border-hover)"
+              }`}
             >
               {strings["theme.light"]}
             </button>
             <button
               onClick={() => setTheme("dark")}
               aria-pressed={theme === "dark"}
-              className={`flex-1 rounded-(--radius-md) border border-(--color-border) px-3 py-2 ${theme === "dark" ? "bg-(--color-accent) text-white" : "bg-(--color-surface-2)"}`}
+              className={`flex-1 rounded-xl border px-3 py-2.5 text-xs font-semibold transition ${
+                theme === "dark"
+                  ? "border-(--color-accent) bg-(--color-accent) text-white shadow-sm"
+                  : "border-(--color-border) bg-(--color-surface-2) text-(--color-text) hover:border-(--color-border-hover)"
+              }`}
             >
               {strings["theme.dark"]}
             </button>
@@ -89,9 +105,9 @@ export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () =>
         </div>
 
         <div className="settings-section">
-          <p className="mb-2 font-medium">Alerts</p>
+          <p className="mb-2.5 font-bold text-(--color-text)">{strings["settings.alerts"]}</p>
           <label className="setting-row">
-            <span>Browser notifications</span>
+            <span className="font-medium">{strings["settings.notifications"]}</span>
             <input
               type="checkbox"
               checked={alertPrefs.notificationsOptIn}
@@ -99,7 +115,7 @@ export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () =>
             />
           </label>
           <label className="setting-row">
-            <span>Vibration</span>
+            <span className="font-medium">{strings["settings.vibration"]}</span>
             <input
               type="checkbox"
               checked={alertPrefs.vibrationOptIn}
@@ -111,7 +127,7 @@ export function SettingsSheet({ open, onClose }: { open: boolean; onClose: () =>
         <SpoilerShieldPanel />
 
         <label className="setting-row">
-          <span>Share anonymous usage counts</span>
+          <span className="font-medium">{strings["settings.analytics"]}</span>
           <input
             type="checkbox"
             checked={!analyticsPrefs.optedOut}

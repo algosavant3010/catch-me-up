@@ -87,4 +87,75 @@ export const mr: UiStrings = {
 
   "theme.light": "लाइट",
   "theme.dark": "डार्क",
+
+  // Landing & Marketing
+  "landing.heroBadge": "प्रत्येक षटक महत्त्वाचे • थेट क्रिकेट साथी",
+  "landing.heroTitle": "कॅच मी अप",
+  "landing.heroSubtitle": "सामन्यात त्वरित परत या. शून्य स्पॉयलर. १००% पडताळणी केलेली मॅच बुद्धिमत्ता.",
+  "landing.ctaTry": "मॅच सेंटर उघडा",
+  "landing.ctaJoinLate": "उशिरा सामील व्हा (१६वे षटक)",
+  "landing.simulatedTag": "सिम्युलेटेड सामना • काल्पनिक संघ • खरी क्रिकेट ऊर्जा",
+  "landing.featuredMatch": "विशेष सामना / टी२०",
+  "landing.liveChase": "थेट पाठलाग",
+  "landing.enterChase": "पाठलागात सामील व्हा",
+  "landing.matchDescription": "लक्ष्य १३६ धावा • शेवटची २० षटके • थेट विजयाची शक्यता आणि AI सारांश",
+  "landing.target": "लक्ष्य",
+  "landing.overs": "षटके",
+  "landing.format": "प्रारूप",
+  "landing.featureHeader": "खऱ्या क्रिकेट चाहत्यांच्या अनुभवासाठी तयार केलेले",
+  "landing.featureSubheader": "कंटाळवाणे आकडे नाही. मित्रांसोबत थेट सामना पाहताना उपयोगी पडणाऱ्या खऱ्या AI शक्ती.",
+  "landing.matchCentre": "मॅच सेंटर",
+
+  // Feature Showcase Cards (Gen-Z & High Hype)
+  "feat.catchmeup.title": "कॅच मी अप • २० सेकंद सारांश",
+  "feat.catchmeup.tag": "खोटेपणा नाही, फक्त टेलिमेट्री",
+  "feat.catchmeup.desc": "चहा प्यायला गेला होतात? २० सेकंदात सर्व जाणून घ्या. प्रत्येक दावा मॅच इंजिनद्वारे पडताळलेला.",
+
+  "feat.fantasy.title": "फँटसी पल्स आणि MVP रडार",
+  "feat.fantasy.tag": "तुमची फँटसी लीग जिंका",
+  "feat.fantasy.desc": "थेट अधिकृत टी२० ड्रीम११ गुण, सामना MVP हायलाइट, डिफरेंशियल पिक्स, आणि व्हॉट्सॲप शेअर.",
+
+  "feat.whatif.title": "व्हॉट-इफ चेस सिम्युलेटर",
+  "feat.whatif.tag": "भविष्य आधीच जाणून घ्या",
+  "feat.whatif.desc": "पुढील षटकातील धावा आणि बाद बदलून विजयाची शक्यता (Δ) आणि रणनीती तपासा.",
+
+  "feat.banter.title": "वाद मिटवा",
+  "feat.banter.tag": "ग्रुप चॅटमधील वाद संपवा",
+  "feat.banter.desc": "मित्र टर्निंग पॉइंटवर वाद घालत आहेत? AI पंच टेलिमेट्री पुराव्यासह त्वरित निकाल देईल.",
+
+  "feat.samjhao.title": "समझाओ • काहीही विचारा",
+  "feat.samjhao.tag": "क्रिकेट गुरु तुमच्या खिशात",
+  "feat.samjhao.desc": "धावसंख्या, डीआरएस नियम किंवा रणनीतीबद्दल मराठीत विचारा. थेट सामन्याच्या आकडेवारीशी जोडलेले.",
+
+  "feat.game.title": "पुढील षटक ओळखा",
+  "feat.game.tag": "तुमची क्रिकेट समज तपासा",
+  "feat.game.desc": "मोफत प्रेडिक्शन गेम: पुढील षटकाचा निकाल ओळखा (विकेट, चौकार, १०+ धावा, शांत षटक) आणि स्ट्रीक बनवा.",
+
+  "feat.rooms.title": "प्रायव्हेट फॅन रूम्स",
+  "feat.rooms.tag": "मित्रांशी स्पर्धा",
+  "feat.rooms.desc": "६-अक्षरी रूम कोड बनवा, लिंक शेअर करा आणि थेट लीडरबोर्डवर अव्वल स्थान मिळवा.",
+
+  "feat.i18n.title": "१० भाषा आणि अँटी-स्पॉयलर सिंक",
+  "feat.i18n.tag": "भारतीय चाहत्यांसाठी",
+  "feat.i18n.desc": "१० भारतीय भाषांमध्ये त्वरित बदला. टीव्ही प्रक्षेपणासोबत वेळ जुळवून स्पॉयलर टाळा.",
+
+  // Settings & Controls
+  "settings.theme": "थीम",
+  "settings.alerts": "सूचना",
+  "settings.notifications": "ब्राउझर सूचना",
+  "settings.vibration": "व्हायब्रेशन",
+  "settings.analytics": "अनामिक वापर आकडेवारी शेअर करा",
+  "settings.language": "भाषा निवडा",
+  "settings.mode": "चाहता अनुभव मोड",
+
+  // Beyond The Score
+  "beyond.title": "स्कोअरच्या पलीकडे",
+  "beyond.subtitle": "संवादात्मक AI फॅन फीचर्स",
+  "beyond.tag": "चाहत्यांची बाजू",
+
+  // Spoiler Shield
+  "spoiler.noDelay": "कोणताही विलंब सेट केलेला नाही.",
+  "spoiler.tapInstruction": "तुमच्या टीव्हीवर पुढील विकेट किंवा चौकार दिसताच बटण दाबा.",
+  "spoiler.waiting": "पुढील क्षणाची वाट पाहत आहे…",
+  "spoiler.tapNow": "आता दाबा!",
 };

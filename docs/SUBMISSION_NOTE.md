@@ -20,3 +20,21 @@ key, offline, or rate-limited — every AI feature has a real fallback.
 The match is simulated and clearly labelled: fictional teams and players,
 a scripted last-ball finish, built to show the architecture, not to imply
 real data.
+
+## 3 Core Fan-Centric AI Features (Take-Home Highlights)
+
+1. **Dream11 Fantasy Impact Pulse (`FantasyPulsePanel.tsx`)**:
+   - Live fantasy points engine (`lib/fantasy/scoring.ts`) computing official T20 points (runs, boundary bonuses, strike rate, wickets, bowled/LBW bonuses, maidens, economy rates).
+   - Dynamic MVP spotlight, leaderboard breakdown, high-upside differential picks, and 1-tap WhatsApp squad share for friends groups.
+   - Zero hallucination: points are calculated purely via deterministic engine data, with Gemini synthesizing tactical fantasy strategy.
+
+2. **Settle The Banter: Cricket Arbitrator (`SettleTheBanterPanel.tsx`)**:
+   - Solves live match arguments between friends (e.g., turning point overs, captaincy decisions, DRS controversy).
+   - Generates Third Umpire rulings citing exact ball numbers, RRR shifts, win probability swings, and MCC law telemetry.
+   - Instant debate chips + custom query input with UPHELD / DEBUNKED / INCONCLUSIVE verdicts.
+
+3. **"What-If" Chase Simulator & Roadmap (`WhatIfSimulatorPanel.tsx`)**:
+   - Interactive scenario builder allowing fans to project hypothetical runs and wickets over upcoming overs.
+   - Computes mathematical Win Probability Delta ($\Delta$) and revised Required Run Rate via `lib/match/simulator.ts`.
+   - Gemini synthesizes an AI coach blueprint: attacking plan for the chasing team and defensive counter-tactics for the fielding captain.
+

@@ -87,4 +87,75 @@ export const en: UiStrings = {
 
   "theme.light": "Light",
   "theme.dark": "Dark",
+
+  // Landing & Marketing
+  "landing.heroBadge": "Every over matters • Live Cricket Companion",
+  "landing.heroTitle": "Catch Me Up",
+  "landing.heroSubtitle": "Back in the game. Zero spoilers. 100% verified match intelligence.",
+  "landing.ctaTry": "Launch Match Centre",
+  "landing.ctaJoinLate": "Jump In Late (POV: 16th Over)",
+  "landing.simulatedTag": "Simulated match • Fictional teams • Real cricket energy",
+  "landing.featuredMatch": "Featured match / T20",
+  "landing.liveChase": "Live Chase",
+  "landing.enterChase": "Enter the chase",
+  "landing.matchDescription": "Target 136 runs • Final 20 overs chase • Real-time win probability & AI recap",
+  "landing.target": "Target",
+  "landing.overs": "Overs",
+  "landing.format": "Format",
+  "landing.featureHeader": "Built for the real fan experience",
+  "landing.featureSubheader": "No boring stats pages. Real AI superpowers built for when you're watching live with friends.",
+  "landing.matchCentre": "Match centre",
+
+  // Feature Showcase Cards (Gen-Z & High Hype)
+  "feat.catchmeup.title": "Catch Me Up • 20s Recap",
+  "feat.catchmeup.tag": "No Cap, Just Telemetry",
+  "feat.catchmeup.desc": "Stepped away to make chai? Get up to speed in 20 seconds. Every single claim is mathematically verified with tappable proof chips. Zero AI hallucinations.",
+
+  "feat.fantasy.title": "Fantasy Pulse & MVP Radar",
+  "feat.fantasy.tag": "Cook Your Fantasy League",
+  "feat.fantasy.desc": "Live official T20 Dream11 points, Match MVP spotlight, differential sleeper picks, and 1-tap WhatsApp squad brag export for your friends group.",
+
+  "feat.whatif.title": "What-If Chase Simulator",
+  "feat.whatif.tag": "Control The Timeline",
+  "feat.whatif.desc": "Interactive scenario scrubber: simulate next-over runs and wickets to project the exact Win Probability Delta (Δ) and AI coach blueprints.",
+
+  "feat.banter.title": "Settle The Banter",
+  "feat.banter.tag": "End Group Chat Debates",
+  "feat.banter.desc": "Friends arguing over turning points, bad reviews, or death bowling? Let the AI Cricket Arbitrator issue verifiable Third Umpire rulings with ball-by-ball telemetry proof.",
+
+  "feat.samjhao.title": "Samjhao • Ask Anything",
+  "feat.samjhao.tag": "Cricket Sensei In Your Pocket",
+  "feat.samjhao.desc": "Ask anything about the score, DRS rules, DLS par, or match tactics in casual Hinglish or your native language. Grounded in live match state.",
+
+  "feat.game.title": "Call The Next Over",
+  "feat.game.tag": "Test Your Cricket IQ",
+  "feat.game.desc": "Free-to-play predictive gaming: call the next over outcome (wicket, boundary, 10+ runs, quiet over) and build an unstoppable win streak.",
+
+  "feat.rooms.title": "Private Fan Rooms",
+  "feat.rooms.tag": "Flex On The Homies",
+  "feat.rooms.desc": "Create 6-character room codes, share instant join links, and climb the live friends leaderboard in real-time.",
+
+  "feat.i18n.title": "10 Languages & Anti-Spoiler Sync",
+  "feat.i18n.tag": "Built For Desi Fans",
+  "feat.i18n.desc": "Switch between 10 Indian regional languages on the fly. Calibrate delay to your TV stream so friends' WhatsApp messages never spoil the next boundary.",
+
+  // Settings & Controls
+  "settings.theme": "Theme",
+  "settings.alerts": "Alerts",
+  "settings.notifications": "Browser notifications",
+  "settings.vibration": "Vibration",
+  "settings.analytics": "Share anonymous usage counts",
+  "settings.language": "Pick your language",
+  "settings.mode": "Fan experience mode",
+
+  // Beyond The Score
+  "beyond.title": "Beyond the score",
+  "beyond.subtitle": "Interactive AI fan companion features",
+  "beyond.tag": "The fan side",
+
+  // Spoiler Shield
+  "spoiler.noDelay": "No delay set.",
+  "spoiler.tapInstruction": "Tap the button the instant you see the next wicket or boundary on your own TV or stream.",
+  "spoiler.waiting": "Waiting for the next moment…",
+  "spoiler.tapNow": "Tap now!",
 };

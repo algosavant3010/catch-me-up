@@ -74,7 +74,7 @@ export function Sheet({
         aria-label="Close"
         onClick={onClose}
         tabIndex={-1}
-        className="absolute inset-0 bg-black/65 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/75 backdrop-blur-sm transition-opacity"
       />
       <div
         ref={panelRef}
@@ -82,10 +82,10 @@ export function Sheet({
         aria-modal="true"
         aria-labelledby={titleId}
         tabIndex={-1}
-        className="sheet-panel relative z-10 max-h-[90dvh] w-full max-w-xl overflow-y-auto overscroll-contain rounded-t-(--radius-lg) border border-(--color-border) bg-(--color-surface) shadow-md outline-none sm:rounded-(--radius-lg)"
+        className="sheet-panel relative z-10 max-h-[90dvh] w-full max-w-xl overflow-y-auto overscroll-contain rounded-t-2xl border border-(--color-border) bg-(--color-surface) shadow-2xl outline-none sm:rounded-2xl"
       >
-        <div className="sticky top-0 z-20 flex items-center justify-between gap-4 border-b border-(--color-border) bg-(--color-surface) px-5 py-4 sm:px-8">
-          <h2 id={titleId} className="text-xl font-bold">
+        <div className="sticky top-0 z-20 flex items-center justify-between gap-4 border-b border-(--color-border) bg-(--color-surface)/95 px-5 py-4 backdrop-blur-md sm:px-8">
+          <h2 id={titleId} className="text-xl font-bold tracking-tight">
             {title}
           </h2>
           <button
@@ -93,9 +93,9 @@ export function Sheet({
             onClick={onClose}
             aria-label="Close"
             title="Close"
-            className="icon-button shrink-0 text-(--color-text-muted) hover:bg-(--color-surface-2)"
+            className="icon-button size-9 shrink-0 text-(--color-text-muted) hover:bg-(--color-surface-2) hover:text-(--color-text)"
           >
-            <X aria-hidden="true" />
+            <X size={18} aria-hidden="true" />
           </button>
         </div>
         <div className="p-5 sm:p-8">{children}</div>

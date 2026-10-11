@@ -52,40 +52,52 @@ export function SamjhaoSheet({ open, onClose }: { open: boolean; onClose: () => 
   return (
     <Sheet open={open} onClose={onClose} title={strings["nav.ask"]}>
       <div className="flex flex-col gap-5">
-        <div className="grid gap-2">
-          {SUGGESTED.map((s) => (
-            <button
-              key={s}
-              type="button"
-              onClick={() => ask(s)}
-              disabled={loading}
-              className="button-secondary justify-between text-left"
-            >
-              {s}
-              <ArrowUpRight size={16} aria-hidden="true" />
-            </button>
-          ))}
+        <div>
+          <p className="field-label mb-2">Suggested questions</p>
+          <div className="grid gap-2">
+            {SUGGESTED.map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => ask(s)}
+                disabled={loading}
+                className="button-secondary justify-between text-left text-xs font-semibold sm:text-sm"
+              >
+                <span>{s}</span>
+                <ArrowUpRight
+                  size={16}
+                  aria-hidden="true"
+                  className="shrink-0 text-(--color-accent)"
+                />
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="flex max-h-64 flex-col gap-4 overflow-y-auto" aria-live="polite">
-          {history.map((h, i) => (
-            <div key={i} className="flex flex-col gap-1">
-              <p className="self-end rounded-(--radius-md) bg-(--color-accent) px-3 py-2 text-sm text-white">
-                {h.question}
-              </p>
-              <div className="rounded-(--radius-md) bg-(--color-surface-2) px-3 py-2 text-sm">
-                <p>{h.response.onTopic ? h.response.answer : strings["ask.offTopic"]}</p>
-                {h.response.refs.length > 0 && (
-                  <div className="mt-2 flex flex-wrap gap-1.5">
-                    {h.response.refs.map((r) => (
-                      <RefChip key={r} ballNumber={r} />
-                    ))}
-                  </div>
-                )}
+        {history.length > 0 && (
+          <div
+            className="flex max-h-72 flex-col gap-3 overflow-y-auto rounded-xl border border-(--color-border) bg-(--color-surface-2)/30 p-3"
+            aria-live="polite"
+          >
+            {history.map((h, i) => (
+              <div key={i} className="flex flex-col gap-1.5">
+                <p className="self-end rounded-xl bg-(--color-accent) px-3.5 py-2 text-xs font-semibold text-white shadow-xs sm:text-sm">
+                  {h.question}
+                </p>
+                <div className="rounded-xl border border-(--color-border) bg-(--color-surface) p-3 text-xs leading-relaxed sm:text-sm">
+                  <p>{h.response.onTopic ? h.response.answer : strings["ask.offTopic"]}</p>
+                  {h.response.refs.length > 0 && (
+                    <div className="mt-2.5 flex flex-wrap gap-1.5">
+                      {h.response.refs.map((r) => (
+                        <RefChip key={r} ballNumber={r} />
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         <form
           onSubmit={(e) => {
@@ -104,12 +116,12 @@ export function SamjhaoSheet({ open, onClose }: { open: boolean; onClose: () => 
               onChange={(e) => setQuestion(e.target.value)}
               placeholder={strings["ask.placeholder"]}
               maxLength={500}
-              className="flex-1"
+              className="flex-1 rounded-xl border border-(--color-border) bg-(--color-surface-2) px-3.5 py-2.5 text-sm transition focus:border-(--color-accent) focus:outline-none"
             />
             <button
               type="submit"
               disabled={loading || !question.trim()}
-              className="button-primary shrink-0"
+              className="button-primary shrink-0 px-4"
               aria-label={strings["nav.ask"]}
             >
               {loading ? (
@@ -121,12 +133,16 @@ export function SamjhaoSheet({ open, onClose }: { open: boolean; onClose: () => 
             </button>
           </div>
           {loading && (
-            <p role="status" className="mt-2 text-sm text-(--color-text-muted)">
+            <p
+              role="status"
+              className="mt-2 flex items-center gap-2 text-xs text-(--color-text-muted)"
+            >
+              <LoaderCircle size={14} className="animate-spin text-(--color-accent)" />
               Checking the match...
             </p>
           )}
           {error && (
-            <p role="alert" className="mt-2 text-sm text-(--color-danger)">
+            <p role="alert" className="mt-2 text-xs font-semibold text-(--color-danger)">
               {error}
             </p>
           )}

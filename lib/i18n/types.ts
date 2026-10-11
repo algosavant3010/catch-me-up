@@ -96,6 +96,77 @@ export interface UiStrings {
 
   "theme.light": string;
   "theme.dark": string;
+
+  // Landing & Marketing
+  "landing.heroBadge": string;
+  "landing.heroTitle": string;
+  "landing.heroSubtitle": string;
+  "landing.ctaTry": string;
+  "landing.ctaJoinLate": string;
+  "landing.simulatedTag": string;
+  "landing.featuredMatch": string;
+  "landing.liveChase": string;
+  "landing.enterChase": string;
+  "landing.matchDescription": string;
+  "landing.target": string;
+  "landing.overs": string;
+  "landing.format": string;
+  "landing.featureHeader": string;
+  "landing.featureSubheader": string;
+  "landing.matchCentre": string;
+
+  // Feature Showcase Cards (Gen-Z & High Hype)
+  "feat.catchmeup.title": string;
+  "feat.catchmeup.tag": string;
+  "feat.catchmeup.desc": string;
+
+  "feat.fantasy.title": string;
+  "feat.fantasy.tag": string;
+  "feat.fantasy.desc": string;
+
+  "feat.whatif.title": string;
+  "feat.whatif.tag": string;
+  "feat.whatif.desc": string;
+
+  "feat.banter.title": string;
+  "feat.banter.tag": string;
+  "feat.banter.desc": string;
+
+  "feat.samjhao.title": string;
+  "feat.samjhao.tag": string;
+  "feat.samjhao.desc": string;
+
+  "feat.game.title": string;
+  "feat.game.tag": string;
+  "feat.game.desc": string;
+
+  "feat.rooms.title": string;
+  "feat.rooms.tag": string;
+  "feat.rooms.desc": string;
+
+  "feat.i18n.title": string;
+  "feat.i18n.tag": string;
+  "feat.i18n.desc": string;
+
+  // Settings & Controls
+  "settings.theme": string;
+  "settings.alerts": string;
+  "settings.notifications": string;
+  "settings.vibration": string;
+  "settings.analytics": string;
+  "settings.language": string;
+  "settings.mode": string;
+
+  // Beyond The Score
+  "beyond.title": string;
+  "beyond.subtitle": string;
+  "beyond.tag": string;
+
+  // Spoiler Shield
+  "spoiler.noDelay": string;
+  "spoiler.tapInstruction": string;
+  "spoiler.waiting": string;
+  "spoiler.tapNow": string;
 }
 
 export type LocaleCode = "en" | "hinglish" | "hi" | "ta" | "te" | "mr" | "bn" | "kn" | "gu" | "pa";

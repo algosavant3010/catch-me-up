@@ -68,7 +68,7 @@ export function SnapTheTV() {
         <ScanLine aria-hidden="true" />
         Snap the TV
       </h3>
-      <p className="mb-3 text-xs text-(--color-text-muted)">
+      <p className="mb-4 text-xs text-(--color-text-muted)">
         Photograph your TV or another app&apos;s scoreboard and we&apos;ll sync this view to match.
         Processed in memory only — never stored.
       </p>
@@ -89,20 +89,36 @@ export function SnapTheTV() {
         type="button"
         onClick={() => inputRef.current?.click()}
         disabled={status === "processing"}
-        className="button-secondary min-h-24 w-full flex-col border-dashed"
+        className="group flex min-h-28 w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-(--color-border) bg-(--color-surface-2)/40 p-6 text-center transition hover:border-(--color-accent) hover:bg-(--color-surface-2)"
       >
         {status === "processing" ? (
-          <LoaderCircle className="animate-spin" size={22} aria-hidden="true" />
+          <LoaderCircle
+            className="animate-spin text-(--color-accent)"
+            size={24}
+            aria-hidden="true"
+          />
         ) : (
-          <Upload size={22} aria-hidden="true" />
+          <Upload
+            size={24}
+            aria-hidden="true"
+            className="text-(--color-accent) transition group-hover:scale-110"
+          />
         )}
-        {status === "processing" ? "Reading…" : "Upload or photograph"}
+        <span className="text-sm font-semibold">
+          {status === "processing" ? "Reading…" : "Upload or photograph"}
+        </span>
       </button>
-      <p className="mt-2 text-xs text-(--color-text-muted)">JPG, PNG or WebP / up to 4 MB</p>
+      <p className="mt-2 text-center text-xs text-(--color-text-muted)">
+        JPG, PNG or WebP / up to 4 MB
+      </p>
       {message && (
         <p
           role="status"
-          className={`mt-2 text-xs ${status === "retry" ? "text-(--color-danger)" : "text-(--color-success)"}`}
+          className={`mt-2 rounded-lg p-2.5 text-center text-xs font-semibold ${
+            status === "retry"
+              ? "bg-rose-500/10 text-(--color-danger)"
+              : "bg-emerald-500/10 text-(--color-success)"
+          }`}
         >
           {message}
         </p>
